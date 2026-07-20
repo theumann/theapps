@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import AppCard from '../components/AppCard.astro';
+import { SITE_TAGLINE, CONTACT_EMAIL } from '../consts';
+
+const apps = (await getCollection('apps', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base>
+  <section class="pt-10 pb-16 sm:pt-20">
+    <h1 class="max-w-xl text-4xl leading-[1.1] font-bold tracking-tight sm:text-5xl">
+      {SITE_TAGLINE}
+    </h1>
+    <p class="mt-6 max-w-lg text-lg leading-relaxed text-muted">
+      I'm Thierry. I build small, focused web apps — mostly for groups of people
+      trying to organize something together without a group chat falling apart.
+    </p>
+  </section>
+
+  <section id="work" class="scroll-mt-8">
+    <h2 class="mb-6 text-xs font-semibold tracking-[0.08em] text-muted uppercase">
+      Work
+    </h2>
+
+    {
+      apps.length === 0 ? (
+        <p class="text-muted">Nothing published yet.</p>
+      ) : (
+        <div class="grid gap-4 sm:grid-cols-2">
+          {apps.map((app) => (
+            <AppCard app={app} />
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <section class="mt-20 rounded-xl border border-line bg-accent-soft/50 p-8">
+    <h2 class="text-lg font-semibold tracking-tight">Working on something similar?</h2>
+    <p class="mt-2 max-w-md text-[15px] leading-relaxed text-muted">
+      I'm always happy to talk shop — about these apps, or about building small
+      software that people actually use.
+    </p>
+    <a
+      href={`mailto:${CONTACT_EMAIL}`}
+      class="mt-5 inline-flex items-center rounded-lg bg-ink px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+    >
+      Get in touch
+    </a>
+  </section>
+</Base>

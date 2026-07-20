@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Warm neutrals — softer than pure gray, still quiet. */
+  --color-paper: oklch(99% 0.004 90);
+  --color-ink: oklch(23% 0.012 260);
+  --color-muted: oklch(52% 0.014 260);
+  --color-line: oklch(91% 0.006 260);
+
+  /* Single accent. Used sparingly: links, live badge, focus rings. */
+  --color-accent: oklch(56% 0.15 250);
+  --color-accent-soft: oklch(96% 0.025 250);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* Prose styling for case-study bodies. Hand-rolled rather than pulling in
+   @tailwindcss/typography — the content is narrow and predictable. */
+@layer components {
+  .prose {
+    max-width: 65ch;
+    line-height: 1.7;
+  }
+  .prose > * + * {
+    margin-top: 1.25em;
+  }
+  .prose h2 {
+    margin-top: 2.5em;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .prose h3 {
+    margin-top: 2em;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+  .prose a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose ul {
+    list-style: disc;
+    padding-left: 1.25em;
+  }
+  .prose ol {
+    list-style: decimal;
+    padding-left: 1.25em;
+  }
+  .prose li + li {
+    margin-top: 0.4em;
+  }
+  .prose code {
+    background: var(--color-accent-soft);
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  .prose pre {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 0.875rem;
+  }
+  .prose pre code {
+    background: none;
+    padding: 0;
+  }
+  .prose blockquote {
+    border-left: 2px solid var(--color-line);
+    padding-left: 1rem;
+    color: var(--color-muted);
+  }
+}
