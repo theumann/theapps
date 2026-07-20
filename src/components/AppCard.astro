@@ -1,0 +1,30 @@
+---
+import StatusBadge from './StatusBadge.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  app: CollectionEntry<'apps'>;
+}
+
+const { app } = Astro.props;
+const { name, domain, tagline, status } = app.data;
+---
+
+<a
+  href={`/work/${app.id}`}
+  class="group flex flex-col rounded-xl border border-line bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_8px_24px_-12px_rgb(0_0_0/0.15)]"
+>
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <h3 class="text-lg font-semibold tracking-tight">{name}</h3>
+      {domain && <p class="mt-0.5 text-sm text-muted">{domain}</p>}
+    </div>
+    <StatusBadge status={status} />
+  </div>
+
+  <p class="mt-4 flex-1 text-[15px] leading-relaxed text-muted">{tagline}</p>
+
+  <span class="mt-5 text-sm font-medium text-accent">
+    Read more <span class="inline-block transition-transform group-hover:translate-x-0.5">&rarr;</span>
+  </span>
+</a>

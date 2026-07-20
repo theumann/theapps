@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { CONTACT_EMAIL } from '../consts';
+---
+
+<Base title="About" description="About Thierry Heumann — builder of small, focused web apps.">
+  <article class="pt-10 pb-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About</h1>
+
+    <div class="prose mt-8">
+      <p>
+        I'm Thierry Heumann. THeApps is where the things I build end up — the
+        name reads two ways, "The Apps" and "TH e-apps," which is either clever
+        or a pun I've talked myself into.
+      </p>
+
+      <p>
+        Most of what I make comes from the same place: a group of people trying
+        to coordinate something, and a group chat that isn't up to the job.
+        Chat is great for banter and terrible for state. Who's actually coming?
+        Who paid? Is there room for one more? The answer is somewhere in a
+        thread nobody wants to scroll.
+      </p>
+
+      <p>
+        So the apps tend to be small and pointed. They do the handful of things
+        chat does badly, and stay out of the way for everything else.
+      </p>
+
+      <h2>Get in touch</h2>
+      <p>
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      </p>
+    </div>
+  </article>
+</Base>
