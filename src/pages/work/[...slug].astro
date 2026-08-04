@@ -1,11 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
-import type { GetStaticPaths } from 'astro';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = async () => {
   const apps = await getCollection('apps', ({ data }) => !data.draft);
   return apps.map((app) => ({
     params: { slug: app.id },
