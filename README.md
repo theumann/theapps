@@ -16,10 +16,11 @@ marketing site; here it gets a card and a case study.
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321
-npm run build    # static output to dist/
-npm run preview  # serve the built site
-npm run check    # typecheck .astro files
+npm run dev         # http://localhost:4321
+npx astro dev stop  # stop the server
+npm run build       # static output to dist/
+npm run preview     # serve the built site
+npm run check       # typecheck .astro files
 ```
 
 ## Adding an app

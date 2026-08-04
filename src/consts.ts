@@ -6,4 +6,4 @@ export const SITE_TAGLINE = 'Small apps that solve real problems.';
 export const SITE_DESCRIPTION =
   'Apps built by Thierry Heumann — small, focused tools for groups of people trying to get something done together.';
 
-export const CONTACT_EMAIL = 'hello@theapps.app';
+export const CONTACT_EMAIL = 'thierry.heumann@gmail.com';
