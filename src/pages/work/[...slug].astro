@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 
@@ -13,7 +14,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const { app } = Astro.props;
-const { name, domain, tagline, status, url, stack } = app.data;
+const { name, domain, tagline, status, url, logo, stack, statusNote } = app.data;
 const { Content } = await render(app);
 ---
 
@@ -25,7 +26,15 @@ const { Content } = await render(app);
 
     <header class="mt-8 border-b border-line pb-8">
       <div class="flex flex-wrap items-center gap-3">
-        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{name}</h1>
+        {
+          logo ? (
+            <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${name} in a new tab`}>
+              <Image src={logo} alt={name} class="h-9 w-auto sm:h-10" />
+            </a>
+          ) : (
+            <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{name}</h1>
+          )
+        }
         <StatusBadge status={status} />
       </div>
 
@@ -58,6 +67,16 @@ const { Content } = await render(app);
 
     <div class="prose mt-10">
       <Content />
+      {
+        statusNote && (
+          <>
+            <h2 class="flex items-center gap-2">
+              Status <StatusBadge status={status} />
+            </h2>
+            <p>{statusNote}</p>
+          </>
+        )
+      }
     </div>
   </article>
 </Base>
