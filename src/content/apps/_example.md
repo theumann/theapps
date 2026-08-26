@@ -8,7 +8,24 @@ status: planned # live | building | planned
 url: https://example.com # optional — omit if there's nothing public yet
 # logo: ../../assets/foo_logo.png # optional — image must exist; replaces the name, links to url
 statusNote: Where it stands now. Shown next to the Status heading on the case study page — don't add a "## Status" section in the body below.
-stack: [TypeScript, Astro]
+# Grouped by section. Every section is optional — omit the ones that don't apply
+# (a static site has no `data`), and a blank shows as "—" on /stack, which is the
+# point. Section keys are fixed: a typo like `qa:` fails the build by name.
+# See src/lib/stack.ts for the full list and the value conventions:
+#   version inline when it matters   Next.js 16.3, Tailwind v4 — but plain `npm`
+#   em dash for the role             Playwright — e2e, Astro 5 — static
+#   `~` prefix for not-yet-wired-up  ~Sentry — errors  (renders dimmed)
+stack:
+  language: [TypeScript]
+  framework: [Astro 5 — static, Tailwind v4]
+  data: [Postgres, Drizzle — ORM + migrations]
+  auth: [Auth.js v5 — magic link]
+  integrations: [Resend — email]
+  hosting: [Railway — web + cron service + Postgres]
+  testing: [Vitest — unit, Playwright — e2e]
+  tooling: [npm, ESLint]
+  ci: [Railway — push deploy]
+  observability: [Sentry — errors]
 order: 99 # lower sorts first
 draft: true
 ---

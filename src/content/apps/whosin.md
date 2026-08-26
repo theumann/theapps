@@ -5,7 +5,12 @@ tagline: Rosters, RSVPs/payment tracking and Whatsapp Group updates for pick-up 
 status: live
 url: https://whosin.team/
 logo: ../../assets/whosin_logo.png
-stack: [TypeScript, Next.js, Prisma, Postgres, Tailwind]
+stack:
+  language: [TypeScript]
+  framework: [Next.js — App Router, Tailwind v4]
+  data: [Postgres, Prisma — ORM + migrations]
+  integrations: [WhatsApp — share link]
+  hosting: [Railway]
 order: 1
 statusNote: Live, with three real groups using it — a fixed roster team and two pick-up groups, spanning the range from most to least structured. Not yet public.
 ---
