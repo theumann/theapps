@@ -4,9 +4,9 @@ import Base from '../layouts/Base.astro';
 import AppCard from '../components/AppCard.astro';
 import { SITE_TAGLINE, CONTACT_EMAIL } from '../consts';
 
-const apps = (await getCollection('apps', ({ data }) => !data.draft)).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+const apps = (
+  await getCollection('apps', ({ data }) => !data.draft && !data.unlisted)
+).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base>
