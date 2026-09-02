@@ -56,8 +56,10 @@ const apps = defineCollection({
       stack: stackSchema.default(emptyStack),
       /** Lower sorts first on the homepage. */
       order: z.number().default(100),
-      /** Set true to hide from the site without deleting the file. */
+      /** Set true to hide from the site entirely — no card, no case study, not on /stack. */
       draft: z.boolean().default(false),
+      /** Set true for an app that's real but shouldn't take a homepage card: it keeps its case study and its /stack column. This site's own entry is the case. */
+      unlisted: z.boolean().default(false),
     }),
 });
 

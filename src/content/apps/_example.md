@@ -15,6 +15,8 @@ statusNote: Where it stands now. Shown next to the Status heading on the case st
 #   version inline when it matters   Next.js 16.3, Tailwind v4 — but plain `npm`
 #   em dash for the role             Playwright — e2e, Astro 5 — static
 #   `~` prefix for not-yet-wired-up  ~Sentry — errors  (renders dimmed)
+# Watch for commas: `[GitHub Actions — lint, test]` is TWO entries, not one.
+# Quote the value, or use a block sequence, as `ci` does below.
 stack:
   language: [TypeScript]
   framework: [Astro 5 — static, Tailwind v4]
@@ -24,7 +26,9 @@ stack:
   hosting: [Railway — web + cron service + Postgres]
   testing: [Vitest — unit, Playwright — e2e]
   tooling: [npm, ESLint]
-  ci: [Railway — push deploy]
+  ci:
+    - 'GitHub Actions — lint, typecheck, test on PR' # quoted: contains commas
+    - Railway — deploy on merge to main
   observability: [Sentry — errors]
 order: 99 # lower sorts first
 draft: true

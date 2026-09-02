@@ -1,0 +1,153 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import { STACK_SECTIONS, stackSections } from '../lib/stack';
+
+/**
+ * The matrix: sections down, apps across. Unlike the case study pages this
+ * shows every section for every app, empty ones included — a blank
+ * Observability cell next to a filled one is the thing worth seeing.
+ *
+ * `unlisted` apps belong here (that's what the flag is for — this site's own
+ * entry has no homepage card but is a real column); `draft` apps don't.
+ */
+const apps = (await getCollection('apps', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+/** One row per section, holding each app's items for it, in column order. */
+const rows = STACK_SECTIONS.map(({ key, label }) => ({
+  key,
+  label,
+  cells: apps.map((app) => stackSections(app.data.stack, true).find((s) => s.key === key)!.items),
+}));
+
+/** Per app, for the small-screen layout — only the sections it actually has. */
+const perApp = apps.map((app) => ({ app, sections: stackSections(app.data.stack) }));
+
+const anyPlanned = rows.some((row) => row.cells.some((items) => items.some((i) => i.planned)));
+---
+
+<Base
+  title="Stack"
+  description="The technologies behind each app — platform, data, hosting, testing and the rest, side by side."
+  wide
+>
+  <section class="pt-10 pb-10 sm:pt-16">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Stack</h1>
+    <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+      What each app is actually built on, side by side. The gaps are as
+      informative as the entries — a static site has no database, and not
+      everything needs an error tracker.
+    </p>
+  </section>
+
+  {/* Wide screens: the matrix. Scrolls inside its own container rather than
+      making the page scroll sideways. */}
+  <div class="hidden overflow-x-auto md:block">
+    <table class="w-full border-collapse text-left align-top">
+      <thead>
+        <tr class="border-b border-line">
+          <th class="w-40 py-3 pr-4 align-bottom text-xs font-semibold tracking-[0.08em] text-muted uppercase">
+            Section
+          </th>
+          {
+            apps.map((app) => (
+              <th class="px-4 py-3 align-bottom">
+                <a
+                  href={`/work/${app.id}`}
+                  class="text-[15px] font-semibold tracking-tight transition-colors hover:text-accent"
+                >
+                  {app.data.name}
+                </a>
+                <div class="mt-1.5">
+                  <StatusBadge status={app.data.status} />
+                </div>
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((row) => (
+            <tr class="border-b border-line/60 last:border-0">
+              <th
+                scope="row"
+                class="py-4 pr-4 align-top text-xs font-semibold tracking-[0.08em] text-muted uppercase"
+              >
+                {row.label}
+              </th>
+              {row.cells.map((items) => (
+                <td class="px-4 py-4 align-top text-[13px] leading-relaxed">
+                  {items.length === 0 ? (
+                    <span class="text-line" aria-label="none">
+                      &mdash;
+                    </span>
+                  ) : (
+                    <ul class="space-y-1">
+                      {items.map((item) => (
+                        <li
+                          class:list={[item.planned ? 'italic text-muted/60' : 'text-ink/80']}
+                          title={item.planned ? 'Planned — not wired up yet' : undefined}
+                        >
+                          {item.label}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  {/* Narrow screens: a matrix can't survive 375px, so the same data goes
+      app by app. Empty sections are dropped here — with one column visible
+      at a time there's nothing to compare a blank against. */}
+  <div class="space-y-10 md:hidden">
+    {
+      perApp.map(({ app, sections }) => (
+        <section>
+          <div class="flex flex-wrap items-center gap-3 border-b border-line pb-3">
+            <a href={`/work/${app.id}`} class="text-lg font-semibold tracking-tight">
+              {app.data.name}
+            </a>
+            <StatusBadge status={app.data.status} />
+          </div>
+          <dl class="mt-4 space-y-4">
+            {sections.map((section) => (
+              <div class="grid grid-cols-[7.5rem_1fr] gap-3">
+                <dt class="pt-0.5 text-xs font-semibold tracking-[0.08em] text-muted uppercase">
+                  {section.label}
+                </dt>
+                <dd class="text-[13px] leading-relaxed">
+                  <ul class="space-y-1">
+                    {section.items.map((item) => (
+                      <li class:list={[item.planned ? 'italic text-muted/60' : 'text-ink/80']}>
+                        {item.label}
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))
+    }
+  </div>
+
+  {
+    anyPlanned && (
+      <p class="mt-8 text-[13px] text-muted">
+        <span class="italic text-muted/60">Italics</span> mark something planned
+        but not wired up yet.
+      </p>
+    )
+  }
+</Base>

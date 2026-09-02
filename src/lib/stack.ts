@@ -43,6 +43,15 @@ export type Stack = Record<StackSectionKey, string[]>;
  * - `~` prefix for intended-but-not-wired-up — `~Sentry — errors`. Rendered
  *   dimmed, so the page is useful as a working dashboard without claiming
  *   something that isn't there yet.
+ *
+ * One YAML trap, and the schema can't catch it: a flow sequence splits on
+ * commas, so `[GitHub Actions — lint, test]` is *two* entries, not one with a
+ * comma in it. It renders as two plausible-looking rows rather than failing.
+ * Quote any value containing a comma, or use a block sequence:
+ *
+ *   ci:
+ *     - 'GitHub Actions — format, lint, typecheck, test on PR'
+ *     - Railway — deploy on merge to main
  */
 export interface StackItem {
   /** Display text, with the `~` marker stripped. */
