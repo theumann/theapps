@@ -14,7 +14,10 @@ stack:
   hosting: [Railway — web + Postgres]
   testing: [Vitest — unit + coverage, Playwright — e2e]
   tooling: [npm, ESLint, Prettier]
-  ci: [GitHub Actions — format, lint, typecheck, test on PR, Railway — staging + prod on merge to main, Migrations on start]
+  ci:
+    - 'GitHub Actions — format, lint, typecheck, test on PR'
+    - Railway — staging + prod on merge to main
+    - Migrations on start
   observability: [Sentry — errors]
 order: 1
 statusNote: Live, with three real groups using it — a fixed roster team and two pick-up groups, spanning the range from most to least structured. Not yet public.
