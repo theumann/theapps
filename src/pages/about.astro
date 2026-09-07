@@ -3,31 +3,44 @@ import Base from '../layouts/Base.astro';
 import { CONTACT_EMAIL } from '../consts';
 ---
 
-<Base title="About" description="About Thierry Heumann — builder of small, focused web apps.">
+<Base title="About" description="About Thierry Heumann, QA, Test Automation Lead and builder of small, focused web apps.">
   <article class="pt-10 pb-8">
     <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About</h1>
 
     <div class="prose mt-8">
       <p>
-        I'm Thierry Heumann. THeApps is where the things I build end up — the
-        name reads two ways, "The Apps" and "TH e-apps," which is either clever
-        or a pun I've talked myself into.
+        I'm Thierry Heumann. "The Apps" (or "TH e-apps") is where the things I build end up.
       </p>
 
       <p>
-        Most of what I make comes from the same place: a group of people trying
-        to coordinate something, and a group chat that isn't up to the job.
-        Chat is great for banter and terrible for state. Who's actually coming?
-        Who paid? Is there room for one more? The answer is somewhere in a
-        thread nobody wants to scroll.
+        I spent over a decade as a QA lead and test automation engineer, building
+        quality strategy and automation frameworks for SaaS companies. I got good
+        at finding the missing parts of software before users did, and at working
+        closely enough with product and engineering teams to help prevent them in
+        the first place. A decade of watching where software leaves people
+        stranded is a decent education in what to build instead.
       </p>
 
       <p>
-        So the apps tend to be small and pointed. They do the handful of things
-        chat does badly, and stay out of the way for everything else.
+        Recently, I started building my own things. Most of them come from the
+        same place: a group of people trying to coordinate something, and a group
+        chat that isn't up to the job. Chat is great for banter and bad for state.
+        Who's actually coming? Who paid? Is there room for one more? The answer is
+        buried in a thread nobody wants to scroll.
+      </p>
+
+      <p>
+        <a href="/work/whosin">whosin</a> and <a href="/work/fphelp">FPheLp</a> do
+        exactly that, in different contexts. They aren't replacing chat. They take
+        the handful of things chat does badly (RSVPs, payments, standings, results)
+        and stay out of the way for everything else.
       </p>
 
       <h2>Get in touch</h2>
+      <p>
+        Feedback, questions, or an idea for an app or website you'd like built —
+        please reach out.
+      </p>
       <p>
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
       </p>
