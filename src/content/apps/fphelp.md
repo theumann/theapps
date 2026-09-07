@@ -1,11 +1,11 @@
 ---
 name: FPheLp
 domain: fphelp.app
-tagline: Standings, results and the money pot for a private fantasy football league — drafted for the organizer to send, never sent on their behalf.
+tagline: Standings, results and the money pot for a private fantasy football league, drafted for the organizer to send.
 status: live
 url: https://fphelp.app
 logo: ../../assets/fphelp_logo.png
-statusNote: Live, running a real 17-manager league through the season — the first gameweek was scored and verified end to end on 25 Aug 2026. Sign-in is allowlisted to specific addresses for now; open sign-up is the next phase.
+statusNote: Live, running a real 17-manager league through the season. The first gameweek was scored and verified end to end on 25 Aug 2026. Sign-in is allowlisted to specific addresses for now; open sign-up is the next phase.
 stack:
   language: [TypeScript, Node 24]
   framework: [Next.js 16.3 — App Router, React 19.2 — React Compiler, Tailwind v4]
@@ -32,18 +32,13 @@ doing it for their friends.
 
 ## The approach
 
-Automate the reading and the arithmetic. Don't automate the sending.
+Automate the reading and the arithmetic, facilitate the sharing.
 
 The app watches the league, computes the digest, and has a draft waiting when the
-organizer opens it. They edit it, tick which blocks to include, and tap once —
-WhatsApp opens with the message pre-filled and they choose the group themselves.
-
-That last part is a deliberate stop. A tool that posts to your friends' group
-chat on your behalf is a different, worse product: the weekly update is the
-organizer's voice, and the banter around it is why the group reads it at all.
-So the pipeline ends at their thumb. Delivery state is *prepared*, then
-optionally *marked sent* — never "confirmed delivered", because the app genuinely
-doesn't know.
+organizer opens it. They edit it with their own update and comments, tick
+which blocks to include, and tap once. WhatsApp opens with the message
+pre-filled and they choose the group themselves. And/or email is sent to the
+group. The conversation and banter around it still lives there.
 
 League members never sign in. They don't have accounts, and the app has no
 contact details for them beyond what the organizer types in. Only the person
@@ -61,14 +56,9 @@ already been sent to eighteen people.
 
 On 24 August the league average read 52.82. Nothing was left to play. Fourteen
 hours later, with no further fixtures, it settled at 53.65. A digest sent on the
-earlier reading would have published wrong totals to the whole league — and
+earlier reading would have published wrong totals to the whole league and
 nobody would have known to check, because the message would have looked exactly
 right.
-
-So sending is gated on a separate endpoint, cross-checked, with a length guard in
-front of it — that endpoint returns an empty array outside a live gameweek, and
-"every element passes" is vacuously true of nothing. Get that wrong and the gate
-opens on no data at all.
 
 The wider lesson is about the API rather than this league. It's first-party but
 undocumented, with no stability guarantee and shapes that shift between seasons.

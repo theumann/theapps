@@ -20,12 +20,12 @@ stack:
     - Migrations on start
   observability: [Sentry — errors]
 order: 1
-statusNote: Live, with three real groups using it — a fixed roster team and two pick-up groups, spanning the range from most to least structured. Not yet public.
+statusNote: Live, with three real groups using it. A fixed roster team and two pick-up groups, spanning the range from most to least structured.
 ---
 
 ## The problem
 
-Most recreational sports group runs on WhatsApp, and every one of them hits the
+Most recreational sport groups run on WhatsApp, and every one of them hits the
 same wall. Someone posts "football Thursday 7pm, first 14 in." Then come forty
 messages. Three people say "in" twice. Two drop out in a thread nobody reads to
 the end. Somebody's counting on their fingers an hour before kickoff, and the
@@ -38,7 +38,7 @@ as a running tally in the organizer's head.
 
 The chat is where the group actually lives, and that doesn't need to change.
 
-So whosin doesn't replace,  It coexists:
+So whosin doesn't replace, it coexists:
 
 - **The app owns the structured state:** who's in, capacity, the waitlist, who
   has paid, what's on the schedule.
@@ -48,7 +48,7 @@ So whosin doesn't replace,  It coexists:
   account.
 
 That last point matters more than it sounds. Requiring every casual player to
-sign up is how these tools die. Only the organizer needs an account.
+sign up is how these tools die. Only the organizers need an account.
 
 ## One primitive
 
@@ -57,7 +57,7 @@ to tap "I'm in." One wants the organizer to mark people paid via Venmo. One is a
 fixed team that needs Yes / No / Maybe against a recurring calendar.
 
 The temptation is three features. The abstraction that collapses them:
-**a confirmation takes a slot.** What counts as a confirmation is the variable —
-a player tap, an organizer marking a payment, an RSVP. Payment becomes a layer
+**a confirmation takes a slot.** What counts as a confirmation is the variable.
+A player tap, an organizer marking a payment, an RSVP. Payment becomes a layer
 on top rather than a prerequisite, and the open-event flow ships without waiting
 on it.
