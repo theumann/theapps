@@ -8,6 +8,10 @@ decided, just not done yet.
 - [ ] Put the site online via Cloudflare (Workers → Import a repository, or
       Pages). Build command `npm run build`, output `dist`. See README.md for
       the custom-domain and email-routing walkthrough.
+- [ ] **Go-live commit**, once the site is ready to be found: remove the
+      `noindex` meta from `src/layouts/Base.astro` and restore the `Sitemap:`
+      line in `public/robots.txt`. Until then every page, including preview
+      URLs, stays out of search indexes.
 
 ## Link checking
 
