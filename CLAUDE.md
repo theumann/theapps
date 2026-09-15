@@ -45,3 +45,5 @@ No test suite. No lint script configured.
 ## Deploy
 
 Cloudflare (Workers → Import a repository, or Pages if that tab still exists). Build command `npm run build`, output directory `dist`. Push to `main` deploys; PRs get preview URLs. See README.md for the full walkthrough, including custom-domain and email-routing setup.
+
+**The site is deliberately `noindex` until launch.** `src/layouts/Base.astro` carries `<meta name="robots" content="noindex, nofollow">` and `public/robots.txt` has its `Sitemap:` line commented out. Don't remove either as cleanup — deleting them is the go-live decision, and it's Thierry's. Don't switch `robots.txt` to `Disallow: /` either: a blocked crawler never reads the noindex tag.
