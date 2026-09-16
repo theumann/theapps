@@ -61,9 +61,12 @@ certificate is issued.
 
 Two things worth turning on while you're in the dashboard, both free:
 
-- **Email Routing** — forwards `hello@theapps.app` to a real inbox. The address
-  is already referenced in `src/consts.ts`; until routing is set up, mail to it
-  bounces.
+- **Email Routing** — forwards `thierry@theapps.app` (`CONTACT_EMAIL` in
+  `src/consts.ts`) to a real inbox. It now lives at account level: **Compute →
+  Email Service → Email Routing**, not under the domain's Email menu. If the zone
+  was imported from another registrar, delete its old MX and SPF records — a
+  domain gets exactly one SPF record, and Cloudflare won't replace an existing one
+  for you. Set up and verified for this domain.
 - **Web Analytics** — privacy-preserving, no cookie banner required.
 
 ## Notes
