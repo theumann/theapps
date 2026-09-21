@@ -24,10 +24,6 @@ const year = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <!-- Pre-launch: keeps every page, and every *.pages.dev / *.workers.dev
-         preview, out of search indexes. Removing this line (and restoring the
-         Sitemap line in public/robots.txt) is the deliberate go-live commit. -->
-    <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
