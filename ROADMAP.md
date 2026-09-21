@@ -5,13 +5,17 @@ decided, just not done yet.
 
 ## Deploy
 
-- [ ] Put the site online via Cloudflare (Workers → Import a repository, or
-      Pages). Build command `npm run build`, output `dist`. See README.md for
-      the custom-domain and email-routing walkthrough.
-- [ ] **Go-live commit**, once the site is ready to be found: remove the
-      `noindex` meta from `src/layouts/Base.astro` and restore the `Sitemap:`
-      line in `public/robots.txt`. Until then every page, including preview
-      URLs, stays out of search indexes.
+- [x] Put the site online via Cloudflare Pages — done 2026-09-16. Custom
+      domains `theapps.app` and `www`, production branch `main`, build
+      `npm run build`, output `dist`.
+- [x] Email routing for `thierry@theapps.app` — done 2026-09-15.
+- [x] Social card (`public/og.png`) — done 2026-09-21.
+- [x] **Go-live commit** — done 2026-09-21. `noindex` removed and the
+      `Sitemap:` line restored, so the site is indexable.
+- [ ] Add the property in Google Search Console and submit
+      `sitemap-index.xml`. Removing `noindex` only takes effect on the next
+      crawl, which can be days or weeks; submitting the sitemap is the lever
+      that speeds it up.
 
 ## Link checking
 

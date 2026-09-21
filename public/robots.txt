@@ -1,7 +1,4 @@
-# Pre-launch: crawling stays allowed on purpose. A crawler blocked here can't
-# fetch a page to read its noindex tag, and can still index the bare URL from
-# links elsewhere. The noindex meta in src/layouts/Base.astro does the work.
-# Go-live: remove that tag and restore the line below.
-# Sitemap: https://theapps.app/sitemap-index.xml
 User-agent: *
 Allow: /
+
+Sitemap: https://theapps.app/sitemap-index.xml
