@@ -69,9 +69,20 @@ const year = new Date().getFullYear();
         class="flex flex-col gap-2 border-t border-line py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between"
       >
         <p>© {year} Thierry Heumann</p>
-        <a href={`mailto:${CONTACT_EMAIL}`} class="transition-colors hover:text-ink">
-          {CONTACT_EMAIL}
-        </a>
+        <p class="flex items-center gap-2">
+          <a
+            href="https://www.linkedin.com/in/thierryheumann/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="transition-colors hover:text-ink"
+          >
+            LinkedIn
+          </a>
+          <span aria-hidden="true">|</span>
+          <a href={`mailto:${CONTACT_EMAIL}`} class="transition-colors hover:text-ink">
+            {CONTACT_EMAIL}
+          </a>
+        </p>
       </footer>
     </div>
   </body>
