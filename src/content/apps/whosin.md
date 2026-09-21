@@ -1,7 +1,7 @@
 ---
 name: whosin
 domain: whosin.team
-tagline: Rosters, RSVPs/payment tracking and Whatsapp Group updates for pick-up games and amateur teams. The parts a group chat can't hold.
+tagline: Rosters, RSVPs, payment tracking and WhatsApp group updates for pick-up games and amateur teams. The parts a group chat can't hold.
 status: live
 url: https://whosin.team/
 logo: ../../assets/whosin_logo.png
@@ -38,7 +38,7 @@ as a running tally in the organizer's head.
 
 The chat is where the group actually lives, and that doesn't need to change.
 
-So whosin doesn't replace, it coexists:
+So whosin doesn't replace — it coexists:
 
 - **The app owns the structured state:** who's in, capacity, the waitlist, who
   has paid, what's on the schedule.

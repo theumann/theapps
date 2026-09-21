@@ -46,4 +46,6 @@ No test suite. No lint script configured.
 
 Cloudflare (Workers → Import a repository, or Pages if that tab still exists). Build command `npm run build`, output directory `dist`. Push to `main` deploys; PRs get preview URLs. See README.md for the full walkthrough, including custom-domain and email-routing setup.
 
-**The site is deliberately `noindex` until launch.** `src/layouts/Base.astro` carries `<meta name="robots" content="noindex, nofollow">` and `public/robots.txt` has its `Sitemap:` line commented out. Don't remove either as cleanup — deleting them is the go-live decision, and it's Thierry's. Don't switch `robots.txt` to `Disallow: /` either: a blocked crawler never reads the noindex tag.
+**The site is live and indexable** as of 2026-09-21. It spent its first weeks online under a `noindex, nofollow` meta so the first impression would be deliberate; that tag is gone and `public/robots.txt` advertises the sitemap again. If it ever needs to go back to being unlisted, use the meta tag rather than `Disallow: /` in robots.txt — a blocked crawler never fetches the page, so it never reads the noindex, and bare URLs can still be indexed from links elsewhere.
+
+**Link previews** come from `public/og.png`, referenced as an absolute URL in `src/layouts/Base.astro`. It's one static card for the whole site; `og:title` and `og:description` stay per-page. See README.md.
