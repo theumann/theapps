@@ -5,7 +5,7 @@ tagline: Standings, results and the money pot for a private fantasy football lea
 status: live
 url: https://fphelp.app
 logo: ../../assets/fphelp_logo.png
-statusNote: Live, running a real 17-manager league through the season. The first gameweek was scored and verified end to end on 25 Aug 2026. Sign-in is allowlisted to specific addresses for now; open sign-up is the next phase.
+statusNote: Live, running a real 15-manager league through the season. The first gameweek was scored and verified end to end on 25 Aug 2026. Sign-in is allowlisted to specific addresses for now; open sign-up is the next phase.
 stack:
   language: [TypeScript, Node 24]
   framework: [Next.js 16.3 — App Router, React 19.2 — React Compiler, Tailwind v4]
@@ -37,8 +37,8 @@ Automate the reading and the arithmetic, facilitate the sharing.
 The app watches the league, computes the digest, and has a draft waiting when the
 organizer opens it. They edit it with their own update and comments, tick
 which blocks to include, and tap once. WhatsApp opens with the message
-pre-filled and they choose the group themselves. And/or email is sent to the
-group. The conversation and banter around it still lives there.
+pre-filled and they choose the group themselves, or the digest goes out by
+email. The conversation and banter around it still live there.
 
 League members never sign in. They don't have accounts, and the app has no
 contact details for them beyond what the organizer types in. Only the person
@@ -52,7 +52,7 @@ standings are true.
 The fantasy API marks a gameweek `finished` before bonus points are applied, and
 recalculates league tables on a schedule of its own. Both facts are invisible if
 you trust the flag: you get a table that looks complete, is wrong, and has
-already been sent to eighteen people.
+already been sent to fifteen managers.
 
 On 24 August the league average read 52.82. Nothing was left to play. Fourteen
 hours later, with no further fixtures, it settled at 53.65. A digest sent on the

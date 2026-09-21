@@ -11,7 +11,7 @@ statusNote: Live. The hub for everything else here — each featured app keeps i
 stack:
   language: [TypeScript]
   framework: [Astro 5 — static, Tailwind v4, 'MDX — available, unused']
-  hosting: [Cloudflare Workers]
+  hosting: [Cloudflare Pages]
   tooling: [npm, astro check — typecheck]
   ci: [Cloudflare — push to main, PR preview URLs]
 order: 999
