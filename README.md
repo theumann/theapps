@@ -75,5 +75,9 @@ Two things worth turning on while you're in the dashboard, both free:
   The sitemap and canonical URLs are generated from them.
 - Inter loads from Google Fonts via `<link>` in `src/layouts/Base.astro`. To
   drop the external request, switch to Astro's built-in fonts API or self-host.
-- There's no OG image yet — `og:image` is unset, so link previews will be
-  text-only.
+- Link previews use `public/og.png` (1200×630), wired up in `src/layouts/Base.astro`
+  as `og:image` / `twitter:image` with an absolute URL — scrapers ignore relative
+  paths. It's a static, site-wide card: every page shares it, while `og:title` and
+  `og:description` stay per-page. Regenerate it if `SITE_TAGLINE` changes; the
+  colors are the `@theme` tokens from `src/styles/global.css` and the type is Inter,
+  same as the site.
