@@ -12,6 +12,8 @@ interface Props {
 const { title, description = SITE_DESCRIPTION, wide = false } = Astro.props;
 const pageTitle = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — Small apps that solve real problems`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+/** Social cards need an absolute URL; relative paths are ignored by scrapers. */
+const ogImage = new URL('/og.png', Astro.site);
 const year = new Date().getFullYear();
 ---
 
@@ -34,7 +36,16 @@ const year = new Date().getFullYear();
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="THeApps — small apps that solve real problems, built by Thierry Heumann"
+    />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -69,9 +80,20 @@ const year = new Date().getFullYear();
         class="flex flex-col gap-2 border-t border-line py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between"
       >
         <p>© {year} Thierry Heumann</p>
-        <a href={`mailto:${CONTACT_EMAIL}`} class="transition-colors hover:text-ink">
-          {CONTACT_EMAIL}
-        </a>
+        <p class="flex items-center gap-2">
+          <a
+            href="https://www.linkedin.com/in/thierryheumann/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="transition-colors hover:text-ink"
+          >
+            LinkedIn
+          </a>
+          <span aria-hidden="true">|</span>
+          <a href={`mailto:${CONTACT_EMAIL}`} class="transition-colors hover:text-ink">
+            {CONTACT_EMAIL}
+          </a>
+        </p>
       </footer>
     </div>
   </body>
