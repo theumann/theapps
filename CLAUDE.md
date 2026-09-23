@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-The showcase site for theapps.app — a hub-and-spoke portfolio. This site is the hub: a homepage grid of app cards, each opening a case-study page. Each featured app (e.g. whosin) keeps its own product and domain elsewhere; this site only links out to it.
+The showcase site for theapps.app — a hub-and-spoke portfolio. This site is the hub: a homepage grid of app cards, each opening a case-study page. Each featured app (e.g. WhosIn) keeps its own product and domain elsewhere; this site only links out to it.
 
 ## Commands
 

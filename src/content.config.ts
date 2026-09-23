@@ -38,7 +38,7 @@ const apps = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/apps' }),
   schema: ({ image }) =>
     z.object({
-      /** Display name, e.g. "whosin". */
+      /** Display name as the app writes it, e.g. "WhosIn". Not the route — that comes from the filename. */
       name: z.string(),
       /** The domain it lives at, e.g. "whosin.team". Shown under the name. */
       domain: z.string().optional(),
