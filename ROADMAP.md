@@ -43,6 +43,21 @@ frontmatter, not whether a `url` is reachable.
 Playwright/E2E is deliberately out of scope — the site is static with no
 interactivity to drive.
 
+## Dependencies
+
+Making the repo public auto-enabled Dependabot, which opened 15 alerts on
+2026-09-22 — all of them build-time packages (Astro's image pipeline, sharp,
+svgo, js-yaml and friends). Nothing here runs at request time, and the only
+inputs to a build are files in this repo, so the practical exposure is close to
+nil. They still get fixed: the alerts are public on the repo page now.
+
+- [x] `npm audit fix` cleared all 15 — done 2026-09-23, within existing semver
+      ranges, so `package.json` was untouched and the built HTML came out
+      byte-identical.
+- [ ] Check `npm audit` periodically, or turn on Dependabot's automated PRs.
+      Alert emails are off by default, so nothing will tell you otherwise —
+      the alerts live at Security → Dependabot alerts, not in your inbox.
+
 ## Housekeeping
 
 - [ ] `astro check` reports 15 hints, all `'z' is deprecated` from
