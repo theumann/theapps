@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import StatusBadge from './StatusBadge.astro';
+import RepoLink from './RepoLink.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const { app } = Astro.props;
-const { name, domain, tagline, status, url, logo } = app.data;
+const { name, domain, tagline, status, url, logo, repo } = app.data;
 ---
 
 <div
@@ -40,7 +41,12 @@ const { name, domain, tagline, status, url, logo } = app.data;
 
   <p class="mt-4 flex-1 text-[15px] leading-relaxed text-muted pointer-events-none">{tagline}</p>
 
-  <span class="mt-5 text-sm font-medium text-accent pointer-events-none">
-    Read more <span class="inline-block transition-transform group-hover:translate-x-0.5">&rarr;</span>
-  </span>
+  {/* The card-wide overlay link sits above everything, so anything clickable in
+      here needs to opt back in with pointer-events-auto. */}
+  <div class="relative z-10 mt-5 flex items-center justify-between gap-4 pointer-events-none">
+    <span class="text-sm font-medium text-accent">
+      Read more <span class="inline-block transition-transform group-hover:translate-x-0.5">&rarr;</span>
+    </span>
+    {repo && <RepoLink href={repo} name={name} class="pointer-events-auto" />}
+  </div>
 </div>

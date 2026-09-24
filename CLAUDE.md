@@ -33,6 +33,7 @@ No test suite. No lint script configured.
 - `draft: true` keeps a file in the repo but off the site entirely — no card, no case study, not on `/stack`.
 - `unlisted: true` is the weaker version: no homepage card, but the case study and the `/stack` column both stay. `theapps.md` — this site's own entry — is the case, so the stack page has a column for the site you're reading without the hub advertising itself alongside the apps it points at.
 - `url` is optional — omit it if the app has nothing public to link to yet.
+- `repo` is optional and renders a GitHub mark (`src/components/RepoLink.astro`) on the card and case study. Omit it for anything whose source is private; a link to a 404 is worse than no link.
 
 **Styling is hand-rolled Tailwind v4**, not a component library. Theme tokens (colors, font) live in the `@theme` block in `src/styles/global.css`; case-study prose is styled there too under `.prose` rather than via `@tailwindcss/typography`. Shared visual language lives in that one file — check it before hardcoding a color or spacing value in a component.
 

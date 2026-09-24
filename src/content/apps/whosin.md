@@ -4,6 +4,7 @@ domain: whosin.team
 tagline: Rosters, RSVPs, payment tracking and WhatsApp group updates for pick-up games and amateur teams. The parts a group chat can't hold.
 status: live
 url: https://whosin.team/
+repo: https://github.com/theumann/whosin
 logo: ../../assets/whosin_logo.png
 stack:
   language: [TypeScript, Node 24]
