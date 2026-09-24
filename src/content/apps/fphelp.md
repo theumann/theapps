@@ -4,6 +4,7 @@ domain: fphelp.app
 tagline: Standings, results and the money pot for a private fantasy football league, drafted for the organizer to send.
 status: live
 url: https://fphelp.app
+repo: https://github.com/theumann/fphelp
 logo: ../../assets/fphelp_logo.png
 statusNote: Live, running a real 15-manager league through the season. The first gameweek was scored and verified end to end on 25 Aug 2026. Sign-in is allowlisted to specific addresses for now; open sign-up is the next phase.
 stack:

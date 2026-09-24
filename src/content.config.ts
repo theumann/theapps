@@ -48,6 +48,8 @@ const apps = defineCollection({
       status: z.enum(['live', 'building', 'planned']),
       /** Public URL, if there is one to link to yet. */
       url: z.string().url().optional(),
+      /** Public source repository, if the code is open. Omit for anything still private. */
+      repo: z.string().url().optional(),
       /** Logo image, relative to this file, e.g. ../../assets/foo_logo.png. Replaces the name where shown, linking out to `url`. */
       logo: image().optional(),
       /** One line on where the project stands, shown next to the Status heading on the case study page (in place of a "## Status" section in the body). */

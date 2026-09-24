@@ -7,6 +7,7 @@ domain: theapps.app
 tagline: The hub this site is. A homepage grid of app cards, each opening a case study.
 status: live
 url: https://theapps.app
+repo: https://github.com/theumann/theapps
 statusNote: Live. The hub for everything else here — each featured app keeps its own product and domain, and this site only links out.
 stack:
   language: [TypeScript]
