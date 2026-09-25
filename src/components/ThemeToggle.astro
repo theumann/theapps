@@ -59,6 +59,10 @@
   button?.addEventListener('click', () => {
     const next = isDark() ? 'light' : 'dark';
     root.dataset.theme = next;
+    // Address-bar tint; see the theme-color tags in Base.astro.
+    for (const meta of document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')) {
+      meta.content = meta.dataset[next] ?? meta.content;
+    }
     try {
       localStorage.setItem('theme', next);
     } catch {

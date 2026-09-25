@@ -22,6 +22,13 @@ const year = new Date().getFullYear();
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Tints the mobile browser's address bar to match the page. `media`
+        covers the OS setting; a toggle choice overrides both tags with the
+        matching data-* value, here on load and in ThemeToggle.astro on click.
+        The hex values are --color-paper in each theme (global.css). Keep them
+        in step, and keep these tags above the script that reads them. */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fdfcf9" data-light="#fdfcf9" data-dark="#0d1014" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1014" data-light="#fdfcf9" data-dark="#0d1014" />
     {/* Applies a theme picked with the toggle before anything paints. Inline
         and blocking on purpose: a bundled script runs after first paint, which
         is the flash this exists to prevent. No saved choice means no
@@ -29,7 +36,10 @@ const year = new Date().getFullYear();
     <script is:inline>
       try {
         const theme = localStorage.getItem('theme');
-        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.dataset.theme = theme;
+          for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.content = meta.dataset[theme];
+        }
       } catch {}
     </script>
     <title>{pageTitle}</title>
