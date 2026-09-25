@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
+import AppLogo from '../../components/AppLogo.astro';
 import Base from '../../layouts/Base.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import RepoLink from '../../components/RepoLink.astro';
@@ -17,7 +17,7 @@ export const getStaticPaths = async () => {
 };
 
 const { app } = Astro.props;
-const { name, domain, tagline, status, url, logo, repo, stack, statusNote } = app.data;
+const { name, domain, tagline, status, url, logo, logoDark, repo, stack, statusNote } = app.data;
 const { Content } = await render(app);
 const sections = stackSections(stack);
 ---
@@ -37,7 +37,7 @@ const sections = stackSections(stack);
         {
           logo ? (
             <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${name} in a new tab`}>
-              <Image src={logo} alt={name} class="h-9 w-auto sm:h-10" />
+              <AppLogo logo={logo} logoDark={logoDark} name={name} class="h-9 w-auto sm:h-10" />
             </a>
           ) : (
             <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{name}</h1>
@@ -56,7 +56,7 @@ const sections = stackSections(stack);
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group inline-flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                class="group inline-flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-paper transition-opacity hover:opacity-90"
               >
                 Visit {domain ?? 'site'}
                 <Arrow direction="right" class="group-hover:translate-x-0.5" />
