@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans:
-    Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    Geist, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   /* Warm neutrals — softer than pure gray, still quiet. */
   --color-paper: oklch(99% 0.004 90);
@@ -16,10 +16,6 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     background-color: var(--color-paper);
     color: var(--color-ink);
@@ -37,6 +33,13 @@
 /* Prose styling for case-study bodies. Hand-rolled rather than pulling in
    @tailwindcss/typography — the content is narrow and predictable. */
 @layer components {
+  /* `**bold**` in a tagline (src/lib/emphasis.ts). Ink against the muted body
+     text, so the emphasis reads without shouting. */
+  .tagline strong {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
   .prose {
     max-width: 65ch;
     line-height: 1.7;
@@ -95,5 +98,35 @@
     border-left: 2px solid var(--color-line);
     padding-left: 1rem;
     color: var(--color-muted);
+  }
+}
+
+/* Motion. Kept small on purpose, and none of it runs for anyone who has asked
+   their OS for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Crossfade between pages, no JavaScript. Browsers without cross-document
+     view transitions just navigate normally. The header is named in Base.astro
+     so it holds still while the page under it fades. */
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 400ms;
+  }
+
+  /* Homepage cards fade up in sequence. `backwards` applies the starting frame
+     during the delay but releases the card when done, so the hover lift still
+     works. */
+  .card-in {
+    animation: card-in 500ms ease-out backwards;
+    animation-delay: calc(var(--card-index, 0) * 120ms);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
 }

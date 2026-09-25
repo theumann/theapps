@@ -73,11 +73,12 @@ Two things worth turning on while you're in the dashboard, both free:
 
 - `SITE_URL` in `src/consts.ts` and `site` in `astro.config.mjs` must match.
   The sitemap and canonical URLs are generated from them.
-- Inter loads from Google Fonts via `<link>` in `src/layouts/Base.astro`. To
+- Geist loads from Google Fonts via `<link>` in `src/layouts/Base.astro`. To
   drop the external request, switch to Astro's built-in fonts API or self-host.
 - Link previews use `public/og.png` (1200×630), wired up in `src/layouts/Base.astro`
   as `og:image` / `twitter:image` with an absolute URL — scrapers ignore relative
   paths. It's a static, site-wide card: every page shares it, while `og:title` and
   `og:description` stay per-page. Regenerate it if `SITE_TAGLINE` changes; the
-  colors are the `@theme` tokens from `src/styles/global.css` and the type is Inter,
-  same as the site.
+  colors are the `@theme` tokens from `src/styles/global.css`. The current card
+  is set in Inter, the site's font until 2026-09-25; the site is now Geist, so
+  use Geist next time it's regenerated.

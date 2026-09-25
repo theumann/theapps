@@ -1,7 +1,7 @@
 ---
 name: WhosIn
 domain: whosin.team
-tagline: Rosters, RSVPs, payment tracking and WhatsApp group updates for pick-up games and amateur teams. The parts a group chat can't hold.
+tagline: "**Manage your Activity group.** Currently serving pickup soccer groups. Will expand to any type of activity group (Book club, Hiking group, Wine club, or whatever activity for which you manage attendance and communication)."
 status: live
 url: https://whosin.team/
 repo: https://github.com/theumann/whosin

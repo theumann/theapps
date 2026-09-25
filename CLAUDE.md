@@ -28,7 +28,7 @@ No test suite. No lint script configured.
 - `status: live | building | planned` drives the badge shown on the card and case-study header (`src/components/StatusBadge.astro`).
 - `stack` is an object keyed by section, not a flat list. The sections are defined once in `src/lib/stack.ts`; `src/content.config.ts` builds the Zod schema from that list, so adding a section there makes it valid frontmatter everywhere at once. The schema is `.strict()` — a key an app file invents (`qa:` instead of `testing:`) fails the build naming the file and the key, rather than rendering as a section nobody sees. Value conventions (version inline, ` — ` for the role qualifier, `~` prefix for not-yet-wired-up) are documented in that file and in `_example.md`. One trap the schema can't catch: a YAML flow sequence splits on commas, so `[GitHub Actions — lint, test]` is two entries rather than one, and it renders as two plausible rows instead of failing. Quote any value containing a comma.
 
-`/stack` (`src/pages/stack.astro`) renders the matrix — sections down, apps across, every section shown including the empty ones, since a blank cell next to a filled one is the signal. It has no nav entry yet, by choice; add one to `Base.astro` when the content is showcase-ready.
+`/stack` (`src/pages/stack.astro`) renders the matrix — sections down, apps across, every section shown including the empty ones, since a blank cell next to a filled one is the signal. It's in the nav (Apps · Stack · About). Its intro frames it as what the apps are built on, not a list of skills, and says openly that they're built with AI assistance — keep that framing if the copy changes.
 - `order` controls homepage sort (lower first).
 - `draft: true` keeps a file in the repo but off the site entirely — no card, no case study, not on `/stack`.
 - `unlisted: true` is the weaker version: no homepage card, but the case study and the `/stack` column both stay. `theapps.md` — this site's own entry — is the case, so the stack page has a column for the site you're reading without the hub advertising itself alongside the apps it points at.
@@ -45,10 +45,12 @@ No test suite. No lint script configured.
 
 ## Deploy
 
-Cloudflare (Workers → Import a repository, or Pages if that tab still exists). Build command `npm run build`, output directory `dist`. Push to `main` deploys; PRs get preview URLs. See README.md for the full walkthrough, including custom-domain and email-routing setup.
+Cloudflare (Workers → Import a repository, or Pages if that tab still exists). Build command `npm run build`, output directory `dist`. Push to `main` deploys; every push to any other branch builds a preview, PR or not — `https://<branch>.theapps-7nt.pages.dev`, and the "Cloudflare Pages" check on the commit links it. See README.md for the full walkthrough, including custom-domain and email-routing setup.
 
 **The site is live and indexable** as of 2026-09-21. It spent its first weeks online under a `noindex, nofollow` meta so the first impression would be deliberate; that tag is gone and `public/robots.txt` advertises the sitemap again. If it ever needs to go back to being unlisted, use the meta tag rather than `Disallow: /` in robots.txt — a blocked crawler never fetches the page, so it never reads the noindex, and bare URLs can still be indexed from links elsewhere.
 
 **Link previews** come from `public/og.png`, referenced as an absolute URL in `src/layouts/Base.astro`. It's one static card for the whole site; `og:title` and `og:description` stay per-page. See README.md.
+
+**Internal links end in a slash** (`/about/`, `/apps/whosin/`). Astro builds `about/index.html`, and Cloudflare 308-redirects `/about` to `/about/` — an extra round-trip on every click, and it appeared to skip the page crossfade. `npm run dev` serves both forms, so the difference only shows on a preview. Canonicals and the sitemap already use the slash form.
 
 **Redirects** live in `public/_redirects`, which Cloudflare serves as-is. Case studies were at `/work/<app>` until 2026-09-24, after the site was already indexed; the `/work/* → /apps/:splat 301` rule keeps those old URLs and search results working. Leave it in place. It only runs on Cloudflare, so test it on a preview URL, not `npm run dev`.

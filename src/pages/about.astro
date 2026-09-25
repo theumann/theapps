@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import ContactLinks from '../components/ContactLinks.astro';
 import { CONTACT_EMAIL } from '../consts';
 ---
 
 <Base title="About" description="About Thierry Heumann, a QA and test automation lead who builds small, focused web apps.">
-  <article class="pt-10 pb-8">
+  <article class="pt-8 pb-8">
     <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About</h1>
 
     <div class="prose mt-8">
@@ -30,7 +31,7 @@ import { CONTACT_EMAIL } from '../consts';
       </p>
 
       <p>
-        <a href="/apps/whosin">WhosIn</a> and <a href="/apps/fphelp">FPheLp</a> do
+        <a href="/apps/whosin/">WhosIn</a> and <a href="/apps/fphelp/">FPheLp</a> do
         exactly that, in different contexts. They aren't replacing chat. They take
         the handful of things chat does badly (RSVPs, payments, standings, results)
         and stay out of the way for everything else.
@@ -44,15 +45,8 @@ import { CONTACT_EMAIL } from '../consts';
       <p>
         I'm also open to QA engineering and test automation roles.
       </p>
-      <p>
-        <a
-          href="https://www.linkedin.com/in/thierryheumann/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LinkedIn
-        </a>
-        <span aria-hidden="true"> | </span>
+      <p class="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <ContactLinks />
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
       </p>
     </div>

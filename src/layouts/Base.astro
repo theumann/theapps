@@ -1,15 +1,14 @@
 ---
 import '../styles/global.css';
-import { SITE_TITLE, SITE_DESCRIPTION, CONTACT_EMAIL } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import ContactLinks from '../components/ContactLinks.astro';
 
 interface Props {
   title?: string;
   description?: string;
-  /** Widen the column for pages that hold a table rather than prose. */
-  wide?: boolean;
 }
 
-const { title, description = SITE_DESCRIPTION, wide = false } = Astro.props;
+const { title, description = SITE_DESCRIPTION } = Astro.props;
 const pageTitle = title ? `${title} — ${SITE_TITLE}` : `${SITE_TITLE} — Small apps that solve real problems`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 /** Social cards need an absolute URL; relative paths are ignored by scrapers. */
@@ -47,24 +46,24 @@ const year = new Date().getFullYear();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap"
     />
   </head>
 
   <body class="font-sans">
-    <div
-      class:list={[
-        'mx-auto flex min-h-screen flex-col px-6',
-        wide ? 'max-w-5xl' : 'max-w-3xl',
-      ]}
-    >
-      <header class="flex items-center justify-between py-8">
+    {/* One width for every page, so the header and footer never shift when
+        navigating. */}
+    <div class="mx-auto flex min-h-screen max-w-3xl flex-col px-6">
+      <header class="flex items-center justify-between py-8 [view-transition-name:site-header]">
         <a href="/" class="text-[21px] font-semibold tracking-tight">
           TH<span class="text-accent">e</span>Apps
         </a>
         <nav class="flex gap-6 text-[15px] text-muted">
           <a href="/#apps" class="transition-colors hover:text-ink">Apps</a>
-          <a href="/about" class="transition-colors hover:text-ink">About</a>
+          {/* Trailing slashes are the canonical form: Cloudflare 308s `/about` to
+              `/about/`, which costs a round-trip and seems to skip the crossfade. */}
+          <a href="/stack/" class="transition-colors hover:text-ink">Stack</a>
+          <a href="/about/" class="transition-colors hover:text-ink">About</a>
         </nav>
       </header>
 
@@ -76,20 +75,7 @@ const year = new Date().getFullYear();
         class="flex flex-col gap-2 border-t border-line py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between"
       >
         <p>© {year} Thierry Heumann</p>
-        <p class="flex items-center gap-2">
-          <a
-            href="https://www.linkedin.com/in/thierryheumann/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="transition-colors hover:text-ink"
-          >
-            LinkedIn
-          </a>
-          <span aria-hidden="true">|</span>
-          <a href={`mailto:${CONTACT_EMAIL}`} class="transition-colors hover:text-ink">
-            {CONTACT_EMAIL}
-          </a>
-        </p>
+        <ContactLinks email />
       </footer>
     </div>
   </body>
