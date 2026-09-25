@@ -2,20 +2,25 @@
 import { Image } from 'astro:assets';
 import StatusBadge from './StatusBadge.astro';
 import RepoLink from './RepoLink.astro';
+import Arrow from './Arrow.astro';
+import { emphasisHtml } from '../lib/emphasis';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   app: CollectionEntry<'apps'>;
+  /** Position in the grid, to stagger the fade-in (`.card-in` in global.css). */
+  index?: number;
 }
 
-const { app } = Astro.props;
+const { app, index = 0 } = Astro.props;
 const { name, domain, tagline, status, url, logo, repo } = app.data;
 ---
 
 <div
-  class="group relative flex flex-col rounded-xl border border-line bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_8px_24px_-12px_rgb(0_0_0/0.15)]"
+  style={`--card-index: ${index}`}
+  class="card-in group relative flex flex-col rounded-xl border border-line bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_8px_24px_-12px_rgb(0_0_0/0.15)]"
 >
-  <a href={`/apps/${app.id}`} class="absolute inset-0" aria-label={`Read more about ${name}`}></a>
+  <a href={`/apps/${app.id}`} class="absolute inset-0" aria-label={`${name} case study`}></a>
 
   <div class="relative z-10 flex items-start justify-between gap-4 pointer-events-none">
     <div class="pointer-events-none">
@@ -39,13 +44,13 @@ const { name, domain, tagline, status, url, logo, repo } = app.data;
     <StatusBadge status={status} />
   </div>
 
-  <p class="mt-4 flex-1 text-[15px] leading-relaxed text-muted pointer-events-none">{tagline}</p>
+  <p class="tagline mt-4 flex-1 text-[15px] leading-relaxed text-muted pointer-events-none" set:html={emphasisHtml(tagline)} />
 
   {/* The card-wide overlay link sits above everything, so anything clickable in
       here needs to opt back in with pointer-events-auto. */}
   <div class="relative z-10 mt-5 flex items-center justify-between gap-4 pointer-events-none">
-    <span class="text-sm font-medium text-accent">
-      Read more <span class="inline-block transition-transform group-hover:translate-x-0.5">&rarr;</span>
+    <span class="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+      Case study <Arrow direction="right" class="group-hover:translate-x-0.5" />
     </span>
     {repo && <RepoLink href={repo} name={name} class="pointer-events-auto" />}
   </div>

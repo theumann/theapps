@@ -4,7 +4,7 @@
 # homepage alongside the apps it exists to point at.
 name: THeApps
 domain: theapps.app
-tagline: The hub this site is. A homepage grid of app cards, each opening a case study.
+tagline: Thierry Heumann's apps hub. What I build besides my QA work.
 status: live
 url: https://theapps.app
 repo: https://github.com/theumann/theapps

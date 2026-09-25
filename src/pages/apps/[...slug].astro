@@ -4,7 +4,9 @@ import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import RepoLink from '../../components/RepoLink.astro';
+import Arrow from '../../components/Arrow.astro';
 import { stackSections } from '../../lib/stack';
+import { emphasisHtml, stripEmphasis } from '../../lib/emphasis';
 
 export const getStaticPaths = async () => {
   const apps = await getCollection('apps', ({ data }) => !data.draft);
@@ -20,10 +22,14 @@ const { Content } = await render(app);
 const sections = stackSections(stack);
 ---
 
-<Base title={name} description={tagline}>
+<Base title={name} description={stripEmphasis(tagline)}>
   <article class="pt-8">
-    <a href="/#apps" class="text-sm text-muted transition-colors hover:text-ink">
-      &larr; All apps
+    <a
+      href="/#apps"
+      class="group inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-sm text-muted transition-colors hover:border-accent/40 hover:bg-accent-soft hover:text-ink"
+    >
+      <Arrow direction="left" class="group-hover:-translate-x-0.5" />
+      All apps
     </a>
 
     <header class="mt-8 border-b border-line pb-8">
@@ -40,7 +46,7 @@ const sections = stackSections(stack);
         <StatusBadge status={status} />
       </div>
 
-      <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted">{tagline}</p>
+      <p class="tagline mt-4 max-w-xl text-lg leading-relaxed text-muted" set:html={emphasisHtml(tagline)} />
 
       {
         (url || repo) && (
@@ -50,9 +56,10 @@ const sections = stackSections(stack);
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                class="group inline-flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90"
               >
-                Visit {domain ?? 'site'} &rarr;
+                Visit {domain ?? 'site'}
+                <Arrow direction="right" class="group-hover:translate-x-0.5" />
               </a>
             )}
             {repo && <RepoLink href={repo} name={name} labelled />}

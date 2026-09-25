@@ -3,7 +3,13 @@
 # The filename becomes the URL: src/content/apps/foo.md -> /apps/foo
 name: Example App
 domain: example.com
-tagline: One sentence on what it does and who it's for. This shows on the homepage card.
+# Wrap words in **…** to bold them. Quote the value if it starts with `**` —
+# YAML reads a leading `*` as an alias and fails to parse. Use double quotes
+# around the whole line, so apostrophes inside are fine:
+#   tagline: "**Bold lead.** The rest of it, and it's all one string."
+# A value that doesn't parse fails the build, but `npm run dev` only logs it
+# in the terminal and keeps serving the old text.
+tagline: One sentence on **what it does** and who it's for. This shows on the homepage card.
 status: planned # live | building | planned
 url: https://example.com # optional — omit if there's nothing public yet
 # repo: https://github.com/you/foo # optional — only if the source is public

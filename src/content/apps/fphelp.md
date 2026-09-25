@@ -1,7 +1,7 @@
 ---
 name: FPheLp
 domain: fphelp.app
-tagline: Standings, results and the money pot for a private fantasy football league, drafted for the organizer to send.
+tagline: "**Manage your private fantasy league's money pot and communications.** Standings, results and prizes for private fantasy leagues, drafted for the organizer(s) to send."
 status: live
 url: https://fphelp.app
 repo: https://github.com/theumann/fphelp

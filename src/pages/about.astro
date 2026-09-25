@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import ContactLinks from '../components/ContactLinks.astro';
 import { CONTACT_EMAIL } from '../consts';
 ---
 
@@ -44,15 +45,8 @@ import { CONTACT_EMAIL } from '../consts';
       <p>
         I'm also open to QA engineering and test automation roles.
       </p>
-      <p>
-        <a
-          href="https://www.linkedin.com/in/thierryheumann/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LinkedIn
-        </a>
-        <span aria-hidden="true"> | </span>
+      <p class="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <ContactLinks />
         <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
       </p>
     </div>
