@@ -26,7 +26,7 @@ npm run check       # typecheck .astro files
 ## Adding an app
 
 Drop a Markdown file in `src/content/apps/`. The filename becomes the URL:
-`src/content/apps/foo.md` → `/work/foo`.
+`src/content/apps/foo.md` → `/apps/foo`.
 
 Copy `_example.md` as a starting point — it documents every frontmatter field.
 Files prefixed with `_` are ignored by the content loader, so the example never
