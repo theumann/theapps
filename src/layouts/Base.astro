@@ -52,8 +52,7 @@ const year = new Date().getFullYear();
 
   <body class="font-sans">
     {/* One width for every page, so the header and footer never shift when
-        navigating. Content that needs more room breaks out of it locally, as
-        the /stack table does. */}
+        navigating. */}
     <div class="mx-auto flex min-h-screen max-w-3xl flex-col px-6">
       <header class="flex items-center justify-between py-8 [view-transition-name:site-header]">
         <a href="/" class="text-[21px] font-semibold tracking-tight">
@@ -61,8 +60,10 @@ const year = new Date().getFullYear();
         </a>
         <nav class="flex gap-6 text-[15px] text-muted">
           <a href="/#apps" class="transition-colors hover:text-ink">Apps</a>
-          <a href="/stack" class="transition-colors hover:text-ink">Stack</a>
-          <a href="/about" class="transition-colors hover:text-ink">About</a>
+          {/* Trailing slashes are the canonical form: Cloudflare 308s `/about` to
+              `/about/`, which costs a round-trip and seems to skip the crossfade. */}
+          <a href="/stack/" class="transition-colors hover:text-ink">Stack</a>
+          <a href="/about/" class="transition-colors hover:text-ink">About</a>
         </nav>
       </header>
 

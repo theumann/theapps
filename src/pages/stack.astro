@@ -45,13 +45,9 @@ const anyPlanned = rows.some((row) => row.cells.some((items) => items.some((i) =
     </p>
   </section>
 
-  {/* Wide screens: the matrix. It breaks out of the page column, centered, up
-      to 64rem and never closer than 1.5rem to the viewport edges, so the
-      header and footer keep the same width as every other page. Scrolls
+  {/* Wide screens: the matrix, in the same column as everything else. Scrolls
       inside its own container rather than making the page scroll sideways. */}
-  <div
-    class="relative left-1/2 hidden w-[min(64rem,calc(100vw-3rem))] -translate-x-1/2 overflow-x-auto md:block"
-  >
+  <div class="hidden overflow-x-auto md:block">
     <table class="w-full border-collapse text-left align-top">
       <thead>
         <tr class="border-b border-line">
@@ -62,7 +58,7 @@ const anyPlanned = rows.some((row) => row.cells.some((items) => items.some((i) =
             apps.map((app) => (
               <th class="px-4 py-3 align-bottom">
                 <a
-                  href={`/apps/${app.id}`}
+                  href={`/apps/${app.id}/`}
                   class="text-[15px] font-semibold tracking-tight transition-colors hover:text-accent"
                 >
                   {app.data.name}
@@ -120,7 +116,7 @@ const anyPlanned = rows.some((row) => row.cells.some((items) => items.some((i) =
       perApp.map(({ app, sections }) => (
         <section>
           <div class="flex flex-wrap items-center gap-3 border-b border-line pb-3">
-            <a href={`/apps/${app.id}`} class="text-lg font-semibold tracking-tight">
+            <a href={`/apps/${app.id}/`} class="text-lg font-semibold tracking-tight">
               {app.data.name}
             </a>
             <StatusBadge status={app.data.status} />

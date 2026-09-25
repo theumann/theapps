@@ -20,7 +20,7 @@ const { name, domain, tagline, status, url, logo, repo } = app.data;
   style={`--card-index: ${index}`}
   class="card-in group relative flex flex-col rounded-xl border border-line bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_8px_24px_-12px_rgb(0_0_0/0.15)]"
 >
-  <a href={`/apps/${app.id}`} class="absolute inset-0" aria-label={`${name} case study`}></a>
+  <a href={`/apps/${app.id}/`} class="absolute inset-0" aria-label={`${name} case study`}></a>
 
   <div class="relative z-10 flex items-start justify-between gap-4 pointer-events-none">
     <div class="pointer-events-none">
