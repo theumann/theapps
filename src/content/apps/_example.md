@@ -14,6 +14,7 @@ status: planned # live | building | planned
 url: https://example.com # optional — omit if there's nothing public yet
 # repo: https://github.com/you/foo # optional — only if the source is public
 # logo: ../../assets/foo_logo.png # optional — image must exist; replaces the name, links to url
+# logoDark: ../../assets/foo_logo_dark.png # optional — shown instead of logo in dark mode; use the app's own dark asset if it has one
 statusNote: Where it stands now. Shown next to the Status heading on the case study page — don't add a "## Status" section in the body below.
 # Grouped by section. Every section is optional — omit the ones that don't apply
 # (a static site has no `data`), and a blank shows as "—" on /stack, which is the

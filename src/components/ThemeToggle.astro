@@ -1,0 +1,74 @@
+---
+/* Light/dark switch for the nav. With nothing chosen the site follows the OS;
+   a click pins the opposite of whatever is showing, saved in localStorage and
+   applied before first paint by the inline script in Base.astro's <head>. */
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Toggle dark mode"
+  class="-m-1.5 cursor-pointer rounded-md p-1.5 transition-colors hover:text-ink"
+>
+  {/* Both icons are in the HTML and the `dark:` variant picks one, so the
+      icon is right on first paint without waiting for this script. Each shows
+      the theme a click switches to. */}
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    focusable="false"
+    class="h-[18px] w-[18px] dark:hidden"
+  >
+    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+  </svg>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    focusable="false"
+    class="hidden h-[18px] w-[18px] dark:block"
+  >
+    <circle cx="12" cy="12" r="4" />
+    <path
+      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+    />
+  </svg>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+
+  const isDark = () =>
+    root.dataset.theme === 'dark' ||
+    (root.dataset.theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+
+  const sync = () => button?.setAttribute('aria-pressed', String(isDark()));
+  sync();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+
+  button?.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    // Address-bar tint; see the theme-color tags in Base.astro.
+    for (const meta of document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')) {
+      meta.content = meta.dataset[next] ?? meta.content;
+    }
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      // Storage blocked (private mode, disabled site data): the switch still
+      // works for this page, it just won't carry to the next one.
+    }
+    sync();
+  });
+</script>

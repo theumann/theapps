@@ -1,5 +1,18 @@
 @import 'tailwindcss';
 
+/* `dark:` matches whenever the dark palette below is active: the OS asks for
+   dark and the toggle hasn't forced light, or the toggle forced dark. */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme='light']) *) {
+      @slot;
+    }
+  }
+  &:where(:root[data-theme='dark'] *) {
+    @slot;
+  }
+}
+
 @theme {
   --font-sans:
     Geist, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -13,6 +26,54 @@
   /* Single accent. Used sparingly: links, live badge, focus rings. */
   --color-accent: oklch(56% 0.15 250);
   --color-accent-soft: oklch(96% 0.025 250);
+
+  /* Cards sit one step above the page. */
+  --color-surface: oklch(100% 0 0);
+  --color-subtle: oklch(97% 0 0);
+  /* "Building" badge. */
+  --color-warn: oklch(55.5% 0.163 49);
+  --color-warn-soft: oklch(98.7% 0.022 95);
+}
+
+/* Dark theme. Follows the OS unless the page says otherwise via
+   `data-theme` on <html> (set by the toggle in Base.astro), so each block
+   exists twice: once for "OS is dark and nobody forced light", once for
+   "forced dark". Keep the two in step. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --color-paper: oklch(17% 0.01 260);
+    --color-ink: oklch(93% 0.006 260);
+    --color-muted: oklch(70% 0.012 260);
+    --color-line: oklch(29% 0.012 260);
+    --color-accent: oklch(72% 0.13 250);
+    --color-accent-soft: oklch(28% 0.05 250);
+    --color-surface: oklch(21% 0.012 260);
+    --color-subtle: oklch(27% 0.01 260);
+    --color-warn: oklch(82% 0.14 75);
+    --color-warn-soft: oklch(30% 0.06 60);
+    --shadow-tint: rgb(0 0 0 / 0.5);
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-paper: oklch(17% 0.01 260);
+  --color-ink: oklch(93% 0.006 260);
+  --color-muted: oklch(70% 0.012 260);
+  --color-line: oklch(29% 0.012 260);
+  --color-accent: oklch(72% 0.13 250);
+  --color-accent-soft: oklch(28% 0.05 250);
+  --color-surface: oklch(21% 0.012 260);
+  --color-subtle: oklch(27% 0.01 260);
+  --color-warn: oklch(82% 0.14 75);
+  --color-warn-soft: oklch(30% 0.06 60);
+  --shadow-tint: rgb(0 0 0 / 0.5);
+}
+/* Outside @theme on purpose: it isn't a Tailwind color, just the tint of the
+   card's hover shadow, and @theme would drop it since no utility names it. */
+:root {
+  color-scheme: light;
+  --shadow-tint: rgb(0 0 0 / 0.15);
 }
 
 @layer base {

@@ -7,8 +7,8 @@ const { status } = Astro.props;
 
 const styles: Record<Props['status'], string> = {
   live: 'bg-accent-soft text-accent',
-  building: 'bg-amber-50 text-amber-700',
-  planned: 'bg-neutral-100 text-muted',
+  building: 'bg-warn-soft text-warn',
+  planned: 'bg-subtle text-muted',
 };
 
 const labels: Record<Props['status'], string> = {

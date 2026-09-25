@@ -52,6 +52,8 @@ const apps = defineCollection({
       repo: z.string().url().optional(),
       /** Logo image, relative to this file, e.g. ../../assets/foo_logo.png. Replaces the name where shown, linking out to `url`. */
       logo: image().optional(),
+      /** The same logo recoloured for dark mode, if the plain one doesn't read on a dark background. Only used alongside `logo`. */
+      logoDark: image().optional(),
       /** One line on where the project stands, shown next to the Status heading on the case study page (in place of a "## Status" section in the body). */
       statusNote: z.string().optional(),
       /** Tech worth naming, grouped by section. Shown on the case study page and /stack. See src/lib/stack.ts for the sections and the value conventions. */

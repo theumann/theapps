@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import ContactLinks from '../components/ContactLinks.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 
 interface Props {
   title?: string;
@@ -21,6 +22,26 @@ const year = new Date().getFullYear();
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Tints the mobile browser's address bar to match the page. `media`
+        covers the OS setting; a toggle choice overrides both tags with the
+        matching data-* value, here on load and in ThemeToggle.astro on click.
+        The hex values are --color-paper in each theme (global.css). Keep them
+        in step, and keep these tags above the script that reads them. */}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fdfcf9" data-light="#fdfcf9" data-dark="#0d1014" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1014" data-light="#fdfcf9" data-dark="#0d1014" />
+    {/* Applies a theme picked with the toggle before anything paints. Inline
+        and blocking on purpose: a bundled script runs after first paint, which
+        is the flash this exists to prevent. No saved choice means no
+        attribute, and the CSS follows the OS. */}
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.dataset.theme = theme;
+          for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.content = meta.dataset[theme];
+        }
+      } catch {}
+    </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -58,12 +79,13 @@ const year = new Date().getFullYear();
         <a href="/" class="text-[21px] font-semibold tracking-tight">
           TH<span class="text-accent">e</span>Apps
         </a>
-        <nav class="flex gap-6 text-[15px] text-muted">
+        <nav class="flex items-center gap-6 text-[15px] text-muted">
           <a href="/#apps" class="transition-colors hover:text-ink">Apps</a>
           {/* Trailing slashes are the canonical form: Cloudflare 308s `/about` to
               `/about/`, which costs a round-trip and seems to skip the crossfade. */}
           <a href="/stack/" class="transition-colors hover:text-ink">Stack</a>
           <a href="/about/" class="transition-colors hover:text-ink">About</a>
+          <ThemeToggle />
         </nav>
       </header>
 

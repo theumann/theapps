@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import AppLogo from './AppLogo.astro';
 import StatusBadge from './StatusBadge.astro';
 import RepoLink from './RepoLink.astro';
 import Arrow from './Arrow.astro';
@@ -13,12 +13,12 @@ interface Props {
 }
 
 const { app, index = 0 } = Astro.props;
-const { name, domain, tagline, status, url, logo, repo } = app.data;
+const { name, domain, tagline, status, url, logo, logoDark, repo } = app.data;
 ---
 
 <div
   style={`--card-index: ${index}`}
-  class="card-in group relative flex flex-col rounded-xl border border-line bg-white p-6 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_8px_24px_-12px_rgb(0_0_0/0.15)]"
+  class="card-in group relative flex flex-col rounded-xl border border-line bg-surface p-6 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-[0_8px_24px_-12px_var(--shadow-tint)]"
 >
   <a href={`/apps/${app.id}/`} class="absolute inset-0" aria-label={`${name} case study`}></a>
 
@@ -33,7 +33,7 @@ const { name, domain, tagline, status, url, logo, repo } = app.data;
             class="relative inline-block pointer-events-auto"
             aria-label={`Open ${name} in a new tab`}
           >
-            <Image src={logo} alt={name} class="h-8 w-auto" />
+            <AppLogo logo={logo} logoDark={logoDark} name={name} class="h-8 w-auto" />
           </a>
         ) : (
           <h3 class="text-lg font-semibold tracking-tight">{name}</h3>
