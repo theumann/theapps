@@ -20,7 +20,7 @@ const { logo, logoDark, name, class: className } = Astro.props;
   logoDark ? (
     <>
       <Image src={logo} alt={name} class:list={[className, 'dark:hidden']} />
-      <Image src={logoDark} alt={name} class:list={[className, 'hidden dark:inline']} />
+      <Image src={logoDark} alt={name} class:list={[className, 'hidden dark:block']} />
     </>
   ) : (
     <Image src={logo} alt={name} class={className} />
