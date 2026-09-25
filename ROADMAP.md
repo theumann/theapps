@@ -20,14 +20,14 @@ decided, just not done yet.
 ## Link checking
 
 The gap: `npm run check` (`astro check`) does typechecking only. It does not
-validate a single `href`. A typo like `/work/whosln` typechecks, builds,
+validate a single `href`. A typo like `/apps/whosln` typechecks, builds,
 deploys, and 404s — nothing connects an href string to `getStaticPaths()`.
 The Zod schema in `src/content.config.ts` validates the *shape* of app
 frontmatter, not whether a `url` is reachable.
 
 - [ ] **Tier 1 — internal links, gating the build.** After `npm run build`,
       walk `dist/`, extract every `href`/`src`, assert each internal one
-      resolves to a real file (`/work/whosin` → `dist/work/whosin/index.html`).
+      resolves to a real file (`/apps/whosin` → `dist/apps/whosin/index.html`).
       No server, no network, ~1s. Either a small zero-dependency script or
       `linkinator` pointed at `dist` with `--skip '^https?://'`.
       Wire into the deploy build so a broken link fails the deploy.

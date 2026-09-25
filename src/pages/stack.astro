@@ -56,7 +56,7 @@ const anyPlanned = rows.some((row) => row.cells.some((items) => items.some((i) =
             apps.map((app) => (
               <th class="px-4 py-3 align-bottom">
                 <a
-                  href={`/work/${app.id}`}
+                  href={`/apps/${app.id}`}
                   class="text-[15px] font-semibold tracking-tight transition-colors hover:text-accent"
                 >
                   {app.data.name}
@@ -114,7 +114,7 @@ const anyPlanned = rows.some((row) => row.cells.some((items) => items.some((i) =
       perApp.map(({ app, sections }) => (
         <section>
           <div class="flex flex-wrap items-center gap-3 border-b border-line pb-3">
-            <a href={`/work/${app.id}`} class="text-lg font-semibold tracking-tight">
+            <a href={`/apps/${app.id}`} class="text-lg font-semibold tracking-tight">
               {app.data.name}
             </a>
             <StatusBadge status={app.data.status} />

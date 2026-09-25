@@ -1,6 +1,6 @@
 ---
 # Copy this file to add an app. Delete `draft: true` to publish it.
-# The filename becomes the URL: src/content/apps/foo.md -> /work/foo
+# The filename becomes the URL: src/content/apps/foo.md -> /apps/foo
 name: Example App
 domain: example.com
 tagline: One sentence on what it does and who it's for. This shows on the homepage card.
