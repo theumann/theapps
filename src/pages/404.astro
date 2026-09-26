@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+
+/* Built as dist/404.html. Its existence is what makes Cloudflare answer an
+   unknown path with this page and a 404 status; without it, Cloudflare treats
+   the site as a single-page app and serves the homepage with a 200 instead. */
+---
+
+<Base title="Page not found" description="There's no page at this address.">
+  <article class="pt-8 pb-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Page not found</h1>
+    <p class="mt-4 max-w-lg leading-[1.7]">
+      There's nothing at this address. It may have moved, or the link may have a typo.
+    </p>
+    <a
+      href="/#apps"
+      class="group mt-8 inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-sm text-muted transition-colors hover:border-accent/40 hover:bg-accent-soft hover:text-ink"
+    >
+      <Arrow direction="left" class="group-hover:-translate-x-0.5" />
+      All apps
+    </a>
+  </article>
+</Base>

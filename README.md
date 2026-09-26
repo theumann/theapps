@@ -59,6 +59,22 @@ on the Worker. Note `.app` is on the HSTS preload list — HTTPS is mandatory an
 plain HTTP will fail hard, which is expected and handled automatically once the
 certificate is issued.
 
+Add `www.theapps.app` as a custom domain too, then send it to the apex with a
+**Redirect Rule** (zone → **Rules → Overview → Create rule → Redirect Rule**).
+`public/_redirects` can't do this — it matches paths, not hostnames.
+
+| Setting               | Value                                                   |
+| --------------------- | ------------------------------------------------------- |
+| When                  | Custom filter: `(http.host eq "www.theapps.app")`       |
+| Type                  | Dynamic                                                 |
+| Expression            | `concat("https://theapps.app", http.request.uri.path)`  |
+| Status code           | 301                                                     |
+| Preserve query string | On                                                      |
+
+Redirect Rules run before the Worker, so `www` stays attached and proxied; it
+just never serves a page. Set up and verified for this domain: every `www`
+path, and plain `http://www`, lands on the same path on `https://theapps.app`.
+
 Two things worth turning on while you're in the dashboard, both free:
 
 - **Email Routing** — forwards `thierry@theapps.app` (`CONTACT_EMAIL` in
