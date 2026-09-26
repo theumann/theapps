@@ -1,1 +1,10 @@
+# Case studies lived at /work/<app> until 2026-09-24, after the site was
+# indexed. Keep these for old links and search results.
+#
+# Target the trailing-slash URL directly: /apps/<app> would 308 to
+# /apps/<app>/, a second hop. A placeholder matches one segment, so the
+# slashed and bare forms each need a line. First match wins; the splat
+# rule catches anything else under /work/ as before.
+/work/:app/ /apps/:app/ 301
+/work/:app /apps/:app/ 301
 /work/* /apps/:splat 301
