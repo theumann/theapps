@@ -1,12 +1,24 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import portrait from '../assets/TH_10-2026.png';
 import ContactLinks from '../components/ContactLinks.astro';
 import { CONTACT_EMAIL } from '../consts';
 ---
 
 <Base title="About" description="About Thierry Heumann, a QA and test automation lead who builds small, focused web apps.">
   <article class="pt-8 pb-8">
-    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About</h1>
+    <div class="flex items-center gap-5">
+      <Image
+        src={portrait}
+        alt="Thierry Heumann"
+        widths={[96, 112, 192, 224]}
+        sizes="(min-width: 640px) 112px, 96px"
+        class="size-24 shrink-0 rounded-full object-cover object-[50%_30%] ring-1 ring-line sm:size-28"
+        loading="eager"
+      />
+      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About</h1>
+    </div>
 
     <div class="prose mt-4">
       <p>
