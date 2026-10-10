@@ -1,6 +1,5 @@
 ---
 name: HouseBud
-domain: housebud.app
 tagline: "**Find roommates, then run the household together.** Students match on everyday habits, meet in a small group chat, and turn that group into a household with shared chores and a shopping list."
 status: building
 url: https://frontend-staging-971b.up.railway.app/
