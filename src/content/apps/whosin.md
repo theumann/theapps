@@ -20,7 +20,7 @@ stack:
     - Railway — staging + prod on merge to main
     - Migrations on start
   observability: [Sentry — errors]
-order: 1
+order: 2
 statusNote: Live, with three real groups using it. A fixed roster team and two pick-up groups, spanning the range from most to least structured.
 ---
 

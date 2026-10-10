@@ -19,7 +19,7 @@ stack:
   tooling: [npm, ESLint, tsx]
   ci: [Railway — deploy on merge to main, Migrations on pre-deploy, No staging environment yet]
   observability: [Sentry — errors + cron monitors]
-order: 2
+order: 3
 ---
 
 ## The problem

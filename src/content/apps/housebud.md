@@ -21,7 +21,7 @@ stack:
   testing: [Vitest + Supertest — API integration, Playwright — e2e]
   tooling: [npm, ESLint, Prettier, tsx]
   ci: [Railway — staging on merge to main, Migrations on pre-deploy, No CI pipeline yet]
-order: 3
+order: 1
 ---
 
 ## The problem
