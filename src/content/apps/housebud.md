@@ -5,6 +5,8 @@ tagline: "**Find roommates, then run the household together.** Students match on
 status: building
 url: https://frontend-staging-971b.up.railway.app/
 repo: https://github.com/theumann/housebud
+logo: ../../assets/housebud_logo.svg
+logoDark: ../../assets/housebud_logo_dark.svg
 statusNote: In development, with a demo running on staging. Matching, chat, households, chores and the shopping list are built; production is next.
 stack:
   language: [TypeScript, Node]
