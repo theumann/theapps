@@ -17,7 +17,7 @@ export const getStaticPaths = async () => {
 };
 
 const { app } = Astro.props;
-const { name, domain, tagline, status, url, logo, logoDark, repo, stack, statusNote } = app.data;
+const { name, domain, tagline, status, url, logo, logoDark, repo, demo, stack, statusNote } = app.data;
 const { Content } = await render(app);
 const sections = stackSections(stack);
 ---
@@ -35,10 +35,14 @@ const sections = stackSections(stack);
     <header class="mt-8 border-b border-line pb-8">
       <div class="flex flex-wrap items-center gap-3">
         {
-          logo ? (
+          logo && url ? (
             <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${name} in a new tab`}>
               <AppLogo logo={logo} logoDark={logoDark} name={name} class="h-9 w-auto sm:h-10" />
             </a>
+          ) : logo ? (
+            <h1>
+              <AppLogo logo={logo} logoDark={logoDark} name={name} class="h-9 w-auto sm:h-10" />
+            </h1>
           ) : (
             <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{name}</h1>
           )
@@ -49,7 +53,7 @@ const sections = stackSections(stack);
       <p class="tagline mt-4 max-w-xl text-lg leading-relaxed text-muted" set:html={emphasisHtml(tagline)} />
 
       {
-        (url || repo) && (
+        (url || demo || repo) && (
           <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
             {url && (
               <a
@@ -59,6 +63,25 @@ const sections = stackSections(stack);
                 class="group inline-flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-paper transition-opacity hover:opacity-90"
               >
                 Visit {domain ?? 'site'}
+                <Arrow direction="right" class="group-hover:translate-x-0.5" />
+              </a>
+            )}
+            {/* nofollow: a demo link usually creates something on every visit,
+                and crawlers that run JavaScript would create it too. */}
+            {/* Filled like "Visit" when it's the only way in; outlined beside one. */}
+            {demo && (
+              <a
+                href={demo}
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                class:list={[
+                  'group inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium',
+                  url
+                    ? 'border border-line text-ink transition-colors hover:border-accent/40 hover:bg-accent-soft'
+                    : 'bg-ink text-paper transition-opacity hover:opacity-90',
+                ]}
+              >
+                Demo
                 <Arrow direction="right" class="group-hover:translate-x-0.5" />
               </a>
             )}

@@ -13,6 +13,7 @@ tagline: One sentence on **what it does** and who it's for. This shows on the ho
 status: planned # live | building | planned
 url: https://example.com # optional — omit if there's nothing public yet
 # repo: https://github.com/you/foo # optional — only if the source is public
+# demo: https://example.com/demo # optional — a link straight into a working demo, shown as "Demo"
 # logo: ../../assets/foo_logo.png # optional — image must exist; replaces the name, links to url
 # logoDark: ../../assets/foo_logo_dark.png # optional — shown instead of logo in dark mode; use the app's own dark asset if it has one
 statusNote: Where it stands now. Shown next to the Status heading on the case study page — don't add a "## Status" section in the body below.
