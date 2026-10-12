@@ -68,12 +68,18 @@ const sections = stackSections(stack);
             )}
             {/* nofollow: a demo link usually creates something on every visit,
                 and crawlers that run JavaScript would create it too. */}
+            {/* Filled like "Visit" when it's the only way in; outlined beside one. */}
             {demo && (
               <a
                 href={demo}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                class="group inline-flex items-center gap-1.5 rounded-lg border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-accent/40 hover:bg-accent-soft"
+                class:list={[
+                  'group inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium',
+                  url
+                    ? 'border border-line text-ink transition-colors hover:border-accent/40 hover:bg-accent-soft'
+                    : 'bg-ink text-paper transition-opacity hover:opacity-90',
+                ]}
               >
                 Demo
                 <Arrow direction="right" class="group-hover:translate-x-0.5" />
