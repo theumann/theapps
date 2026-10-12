@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { app, index = 0 } = Astro.props;
-const { name, domain, tagline, status, url, logo, logoDark, repo } = app.data;
+const { name, domain, tagline, status, url, logo, logoDark, repo, demo } = app.data;
 ---
 
 <div
@@ -52,6 +52,21 @@ const { name, domain, tagline, status, url, logo, logoDark, repo } = app.data;
     <span class="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
       Case study <Arrow direction="right" class="group-hover:translate-x-0.5" />
     </span>
-    {repo && <RepoLink href={repo} name={name} class="pointer-events-auto" />}
+    <div class="flex items-center gap-4">
+      {
+        demo && (
+          <a
+            href={demo}
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+            aria-label={`Try the ${name} demo in a new tab`}
+            class="pointer-events-auto -m-2 rounded-lg p-2 text-sm font-medium text-muted transition-colors hover:bg-accent-soft hover:text-ink"
+          >
+            Demo
+          </a>
+        )
+      }
+      {repo && <RepoLink href={repo} name={name} class="pointer-events-auto" />}
+    </div>
   </div>
 </div>

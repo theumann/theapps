@@ -50,6 +50,8 @@ const apps = defineCollection({
       url: z.string().url().optional(),
       /** Public source repository, if the code is open. Omit for anything still private. */
       repo: z.string().url().optional(),
+      /** A link that drops a visitor straight into a working demo, shown as "Demo" on the card and case study. Linked `nofollow`, since a demo URL usually creates something on every visit. */
+      demo: z.string().url().optional(),
       /** Logo image, relative to this file, e.g. ../../assets/foo_logo.png. Replaces the name where shown, linking out to `url`. */
       logo: image().optional(),
       /** The same logo recoloured for dark mode, if the plain one doesn't read on a dark background. Only used alongside `logo`. */
