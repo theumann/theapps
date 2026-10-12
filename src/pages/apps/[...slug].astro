@@ -35,10 +35,14 @@ const sections = stackSections(stack);
     <header class="mt-8 border-b border-line pb-8">
       <div class="flex flex-wrap items-center gap-3">
         {
-          logo ? (
+          logo && url ? (
             <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${name} in a new tab`}>
               <AppLogo logo={logo} logoDark={logoDark} name={name} class="h-9 w-auto sm:h-10" />
             </a>
+          ) : logo ? (
+            <h1>
+              <AppLogo logo={logo} logoDark={logoDark} name={name} class="h-9 w-auto sm:h-10" />
+            </h1>
           ) : (
             <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{name}</h1>
           )

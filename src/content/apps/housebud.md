@@ -2,7 +2,6 @@
 name: HouseBud
 tagline: "**Find roommates, then run the household together.** Students match on everyday habits, meet in a small group chat, and turn that group into a household with shared chores and a shopping list."
 status: building
-url: https://frontend-staging-971b.up.railway.app/
 repo: https://github.com/theumann/housebud
 demo: https://frontend-staging-971b.up.railway.app/demo
 logo: ../../assets/housebud_logo.svg

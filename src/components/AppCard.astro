@@ -25,7 +25,7 @@ const { name, domain, tagline, status, url, logo, logoDark, repo, demo } = app.d
   <div class="relative z-10 flex items-start justify-between gap-4 pointer-events-none">
     <div class="pointer-events-none">
       {
-        logo ? (
+        logo && url ? (
           <a
             href={url}
             target="_blank"
@@ -35,6 +35,11 @@ const { name, domain, tagline, status, url, logo, logoDark, repo, demo } = app.d
           >
             <AppLogo logo={logo} logoDark={logoDark} name={name} class="h-8 w-auto" />
           </a>
+        ) : logo ? (
+          // Nothing public to open yet: a click falls through to the case study.
+          <h3>
+            <AppLogo logo={logo} logoDark={logoDark} name={name} class="h-8 w-auto" />
+          </h3>
         ) : (
           <h3 class="text-lg font-semibold tracking-tight">{name}</h3>
         )
