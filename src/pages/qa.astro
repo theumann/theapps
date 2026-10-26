@@ -15,7 +15,7 @@ const pr = (n: number) => `${repo}/pull/${n}`;
 const stats = [
   { value: '44', label: 'unit tests' },
   { value: '~150', label: 'API tests' },
-  { value: '52', label: 'end-to-end scenarios, on 5 browser projects' },
+  { value: '53', label: 'end-to-end scenarios, on 5 browser projects' },
   { value: '30', label: 'accessibility scans per layout' },
   { value: '89.5%', label: 'backend statement coverage' },
   { value: '8', label: 'problems found since moving to CI' },
@@ -35,7 +35,7 @@ const risks = [
 const levels = [
   ['Unit', 'Vitest', 'Business rules on their own: repeats, rotations, splits, balances. No database.', '44 tests, ~5 s'],
   ['API integration', 'Vitest + Supertest, Postgres', 'Every endpoint: validation, permissions (401/403/404), what gets saved. One schema per worker.', '~150 tests'],
-  ['End-to-end', 'Playwright', 'User flows in a real browser, against a production build of the frontend with the backend and database behind it.', '52 scenarios × 5 projects'],
+  ['End-to-end', 'Playwright', 'User flows in a real browser, against a production build of the frontend with the backend and database behind it.', '53 scenarios × 5 projects'],
   ['Accessibility', 'axe-core via Playwright', 'WCAG 2.1 A and AA on 15 pages, light and dark, desktop and phone.', '30 scans × 2 projects'],
   ['Manual', 'Me, on Windows and Android', 'New features before merge, look and feel, what automation can’t judge.', 'Per feature'],
 ];
