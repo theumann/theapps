@@ -17,7 +17,7 @@ npm run preview     # serve the built site
 npm run check       # typecheck .astro files
 ```
 
-No test suite. No lint script configured.
+No test suite. No lint script configured. `npm run check` also runs in GitHub Actions (`.github/workflows/check.yml`) on every PR and push to `main`, because the Cloudflare build doesn't typecheck.
 
 ## Architecture
 
@@ -53,7 +53,7 @@ No test suite. No lint script configured.
 
 ## Deploy
 
-Cloudflare (Workers → Import a repository, or Pages if that tab still exists). Build command `npm run build`, output directory `dist`. Push to `main` deploys; every push to any other branch builds a preview, PR or not — `https://<branch>.theapps-7nt.pages.dev`, and the "Cloudflare Pages" check on the commit links it. See README.md for the full walkthrough, including custom-domain and email-routing setup.
+Cloudflare (Workers → Import a repository, or Pages if that tab still exists). Build command `npm run build`, output directory `dist`. Push to `main` deploys; every push to any other branch builds a preview, PR or not — `https://<branch>.theapps-7nt.pages.dev`, and the "Cloudflare Pages" check on the commit links it. `main` is protected by a ruleset: changes go through a pull request (no approvals needed), and "Cloudflare Pages" and "Typecheck" must pass before it can merge. Direct pushes and force pushes to `main` are refused. See README.md for the full walkthrough, including custom-domain and email-routing setup.
 
 **The site is live and indexable** as of 2026-09-21. It spent its first weeks online under a `noindex, nofollow` meta so the first impression would be deliberate; that tag is gone and `public/robots.txt` advertises the sitemap again. If it ever needs to go back to being unlisted, use the meta tag rather than `Disallow: /` in robots.txt — a blocked crawler never fetches the page, so it never reads the noindex, and bare URLs can still be indexed from links elsewhere.
 
