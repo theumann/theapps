@@ -79,11 +79,14 @@ const year = new Date().getFullYear();
         <a href="/" class="text-[21px] font-semibold tracking-tight">
           TH<span class="text-accent">e</span>Apps
         </a>
-        <nav class="flex items-center gap-6 text-[15px] text-muted">
+        {/* gap-4 below sm: at gap-6, four links and the toggle don't fit beside
+            the wordmark on a 375px phone. */}
+        <nav class="flex items-center gap-4 text-[15px] text-muted sm:gap-6">
           <a href="/#apps" class="transition-colors hover:text-ink">Apps</a>
           {/* Trailing slashes are the canonical form: Cloudflare 308s `/about` to
               `/about/`, which costs a round-trip and seems to skip the crossfade. */}
           <a href="/stack/" class="transition-colors hover:text-ink">Stack</a>
+          <a href="/qa/" class="transition-colors hover:text-ink">QA</a>
           <a href="/about/" class="transition-colors hover:text-ink">About</a>
           <ThemeToggle />
         </nav>
