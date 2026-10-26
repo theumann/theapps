@@ -1,12 +1,13 @@
 ---
 name: HouseBud
-tagline: "**Find roommates, then run the household together.** Students match on everyday habits, meet in a small group chat, and turn that group into a household with shared chores and a shopping list."
+tagline: "**Find roommates, then run the household together.** Students match on everyday habits, meet in a small group chat, and turn that group into a household with shared chores, expenses and a shopping list."
 status: building
 repo: https://github.com/theumann/housebud
 demo: https://frontend-staging-971b.up.railway.app/demo
+qaPage: /qa/
 logo: ../../assets/housebud_logo.svg
 logoDark: ../../assets/housebud_logo_dark.svg
-statusNote: In development, with a demo running on staging. Matching, chat, households, chores and the shopping list are built; production is next.
+statusNote: In development, with a demo running on staging. Matching, chat and households are built, with chores, a shopping list, expenses, house rules and a calendar; production is next.
 stack:
   language: [TypeScript, Node]
   framework:
@@ -18,9 +19,17 @@ stack:
   data: [Postgres, Prisma 6 — ORM + migrations]
   auth: [Email + password — JWT + bcrypt]
   hosting: [Railway — web + API + Postgres]
-  testing: [Vitest + Supertest — API integration, Playwright — e2e]
+  testing:
+    - Vitest — unit
+    - Vitest + Supertest — API integration
+    - 'Playwright — e2e on Chromium, Firefox, WebKit, emulated phones'
+    - axe-core — WCAG 2.1 AA
+    - v8 — coverage thresholds in CI
   tooling: [npm, ESLint, Prettier, tsx]
-  ci: [Railway — staging on merge to main, Migrations on pre-deploy, No CI pipeline yet]
+  ci:
+    - GitHub Actions — 5 required checks on every PR
+    - Railway — staging on merge to main
+    - Migrations on pre-deploy
 order: 1
 ---
 
@@ -46,10 +55,20 @@ formed:
   household_ and everyone else gets an invite. Nobody is added without saying
   yes.
 - **Then run it.** Repeating chores with an optional rotation, a shared
-  shopping list, and owner controls. Each module can be switched on or off per
+  shopping list, expenses with running balances and settle-up, house rules
+  proposed and agreed by everyone, and a calendar for events, guests and who's
+  away. Owners manage members, and each module can be switched on or off per
   household.
 
 One decision worth calling out: the household gets its **own** chat rather
 than inheriting the matching room. The matching chat shows its full history to
 every participant, so carrying it over would expose conversations from before
 the household existed to whoever joins later.
+
+## Testing
+
+Unit, API and end-to-end suites run on every pull request, across three
+browser engines and two emulated phones, with accessibility scans and coverage
+thresholds, and nothing merges until they pass. The [QA case study](/qa/)
+covers the plan, the risks it starts from, and the eight problems the tests
+have found since moving to CI.

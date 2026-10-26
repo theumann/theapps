@@ -1,0 +1,270 @@
+---
+import Base from '../layouts/Base.astro';
+import RepoLink from '../components/RepoLink.astro';
+import Arrow from '../components/Arrow.astro';
+
+/**
+ * A QA case study, built on HouseBud. The numbers and findings come from
+ * HouseBud's own docs/test-plan.md, so they go stale the same way an app's
+ * `status` does: when that plan changes, this page has to be updated by hand.
+ */
+const repo = 'https://github.com/theumann/housebud';
+const blob = `${repo}/blob/main`;
+const pr = (n: number) => `${repo}/pull/${n}`;
+
+const stats = [
+  { value: '44', label: 'unit tests' },
+  { value: '~150', label: 'API tests' },
+  { value: '52', label: 'end-to-end scenarios, on 5 browser projects' },
+  { value: '30', label: 'accessibility scans per layout' },
+  { value: '89.5%', label: 'backend statement coverage' },
+  { value: '8', label: 'problems found since moving to CI' },
+];
+
+const risks = [
+  ['Someone sees or changes another household’s data', 'API tests in every module: non-members and former members get a 404, and items are looked up by id and household together'],
+  ['Wrong money', 'Unit tests on the maths: splits in whole cents always add up to the total, balances always sum to zero, suggested transfers always settle everyone'],
+  ['Wrong dates', 'Unit tests on every repeat rule and its edges: short months, leap years, chores done late'],
+  ['People added without consent', 'API and end-to-end tests: every invitee accepts or declines, and only owners can form a household'],
+  ['Logged out or bounced by timing', 'A regression test for a dropped profile request, and the WebKit jobs for a race no test can force'],
+  ['Unusable for some people', 'axe on every main page, in both themes'],
+  ['Broken on Safari or iPhone', 'WebKit desktop and an emulated iPhone 14 in CI on every push'],
+  ['Tests that pass by luck', 'Seed users are read-only; tests that change data create their own users, and run with 4+ parallel workers'],
+];
+
+const levels = [
+  ['Unit', 'Vitest', 'Business rules on their own: repeats, rotations, splits, balances. No database.', '44 tests, ~5 s'],
+  ['API integration', 'Vitest + Supertest, Postgres', 'Every endpoint: validation, permissions (401/403/404), what gets saved. One schema per worker.', '~150 tests'],
+  ['End-to-end', 'Playwright', 'User flows in a real browser, against a production build of the frontend with the backend and database behind it.', '52 scenarios × 5 projects'],
+  ['Accessibility', 'axe-core via Playwright', 'WCAG 2.1 A and AA on 15 pages, light and dark, desktop and phone.', '30 scans × 2 projects'],
+  ['Manual', 'Me, on Windows and Android', 'New features before merge, look and feel, what automation can’t judge.', 'Per feature'],
+];
+
+const findings = [
+  { by: 'First CI run', what: 'A seed script only worked on Windows.', fix: 'Made it portable.', pr: 27 },
+  { by: 'Firefox', what: 'A dropped profile request sent logged-in users to the login page.', fix: 'The app retries before giving up.', pr: 28 },
+  { by: 'WebKit, in CI', what: 'Household pages bounced members to the overview.', fix: 'The household list reports “loading” until it’s loaded for the current login.', pr: 29 },
+  { by: 'WebKit', what: 'Test logins raced the login page’s own redirect.', fix: 'Tests set the session on a static page.', pr: 28 },
+  { by: 'axe', what: 'Grey text under 4.5:1 contrast in both themes; teal text at 4.1:1 in dark mode.', fix: 'Retuned the colour tokens, and added a text colour for dark mode.', pr: 32 },
+  { by: 'axe', what: 'The chat list’s “New” button was announced as “Open chat”.', fix: 'Its accessible name now starts with the word on screen.', pr: 32 },
+  { by: 'Parallel runs', what: 'Tests changing shared seed users could break each other.', fix: 'Fresh users per test, kept apart from the seed data.', pr: 28 },
+  { by: 'Writing missing tests', what: 'When a chat room’s owner left, ownership went to whoever was invited first, not who had accepted longest ago.', fix: 'Participants record when they accepted, and handover sorts by it.', pr: 35 },
+];
+---
+
+<Base
+  title="QA"
+  description="How HouseBud is tested: a risk-based test plan, unit, API, end-to-end and accessibility suites across five browsers, and what they found."
+>
+  <article class="pt-8">
+    <header class="border-b border-line pb-8">
+      <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">QA</h1>
+      <p class="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+        <strong class="font-semibold text-ink">A QA case study based on <a href="/apps/housebud/" class="underline decoration-line underline-offset-2 transition-colors hover:text-accent">HouseBud</a>’s written test plan:</strong>{' '}
+        the risks it starts from, the suites that gate every merge, what
+        they’ve found, and what’s deliberately left out.
+      </p>
+
+      <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+        <a
+          href={`${blob}/docs/test-plan.md`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2 text-sm font-medium text-paper transition-opacity hover:opacity-90"
+        >
+          Test plan
+          <Arrow direction="right" class="group-hover:translate-x-0.5" />
+        </a>
+        <a
+          href={`${blob}/.github/workflows/ci.yml`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-1.5 rounded-lg border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-accent/40 hover:bg-accent-soft"
+        >
+          CI workflow
+          <Arrow direction="right" class="group-hover:translate-x-0.5" />
+        </a>
+        <RepoLink href={repo} name="HouseBud" labelled />
+      </div>
+
+      <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-3">
+        {
+          stats.map(({ value, label }) => (
+            <div class="flex flex-col-reverse">
+              <dt class="mt-1 text-[13px] leading-snug text-muted">{label}</dt>
+              <dd class="text-2xl font-semibold tracking-tight">{value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </header>
+
+    <div class="prose mt-10">
+      <h2>How it grew</h2>
+      <p>
+        Testing grew with the app. API tests arrived in its first week, and
+        Playwright end-to-end tests a month later; every
+        feature since has shipped with tests of its own. Once the household
+        modules were in and a demo was running on staging, the next layer made
+        sense. In October 2026 the suites became required checks in CI, then
+        spread to five browsers and gained unit tests, coverage thresholds and
+        accessibility scans. The <a href={`${blob}/docs/test-plan.md`}>test plan</a> writes
+        it all down; this page is the short version.
+      </p>
+
+      <h2>Start from the risks</h2>
+      <p>
+        Testing effort follows what would hurt users most. The plan lists those
+        risks first, then which tests cover each one.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Risk</th><th>Covered by</th></tr>
+          </thead>
+          <tbody>
+            {risks.map(([risk, cover]) => (
+              <tr><td class="w-2/5 font-medium">{risk}</td><td>{cover}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Test levels</h2>
+      <p>
+        Every rule is tested at the lowest level that can check it. Date and
+        money edge cases are cheap and exact as unit tests; checking each one
+        through the API would mean building a household for every case. The API
+        tests then prove the pieces work together, and the end-to-end tests
+        prove it works for a person in a browser.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Level</th><th>Tool</th><th>What it checks</th><th>Size</th></tr>
+          </thead>
+          <tbody>
+            {levels.map(([level, tool, what, size]) => (
+              <tr>
+                <td class="font-medium whitespace-nowrap">{level}</td>
+                <td>{tool}</td>
+                <td>{what}</td>
+                <td class="whitespace-nowrap">{size}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Coverage is measured on the backend, unit and API tests together: 89.5%
+        of statements, 81.9% of branches, 96.6% of functions, 90.7% of lines.
+        CI fails below 87/79/94/88. Coverage says what ran, not what was
+        checked, so it’s a floor against untested code rather than a score.
+      </p>
+
+      <h2>Browsers and devices</h2>
+      <p>
+        The same end-to-end tests run on five Playwright projects: Chromium,
+        Firefox and WebKit on desktop, plus a Pixel 7 on Chromium and an iPhone
+        14 on WebKit. The phones are <strong>emulated</strong> (viewport,
+        touch, user agent), not real devices. A failure that happens only on
+        WebKit is treated as a likely real Safari bug, not noise. One was.
+      </p>
+
+      <h2>The gate</h2>
+      <p>
+        <code>main</code> is protected, and a pull request can’t merge until
+        five required checks pass: format, types, lint and build; the API
+        tests with coverage; and end-to-end tests on Chromium, Firefox and
+        WebKit, each in its own job, in parallel. The coverage thresholds and
+        the axe scans run inside those checks, so missing either blocks the
+        merge too. Beyond the checks:
+      </p>
+      <ul>
+        <li>
+          A test that passes only on retry is a defect to investigate, not a
+          fluke. Two of the bugs below started as tests that failed some of the
+          time on one engine.
+        </li>
+        <li>
+          A bug that isn’t fixed straight away is written down in{' '}
+          <a href={`${blob}/known_bugs_and_improvements.md`}>a file in the repo</a>,
+          and removed in the pull request that fixes it.
+        </li>
+        <li>The test plan is updated in the same pull request as any change to the tests, CI or environments.</li>
+      </ul>
+
+      <h2>What testing found</h2>
+      <p>
+        Eight problems found since the suites moved to CI: five in the app,
+        three in the tooling and the tests. Each fix shipped with the pull request that describes it.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Found by</th><th>Problem</th><th>Fix</th></tr>
+          </thead>
+          <tbody>
+            {findings.map(({ by, what, fix, pr: n }) => (
+              <tr>
+                <td class="whitespace-nowrap">{by}</td>
+                <td>{what}</td>
+                <td>{fix} <a href={pr(n)}>#{n}</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The bounce only Safari saw</h3>
+      <p>
+        After the WebKit jobs were added, household pages occasionally sent
+        members back to the overview. The trace showed why: the household list
+        first loads before login and finishes as “no households”. On Chromium
+        and Firefox the reload after login normally started first; on WebKit the
+        profile sometimes came back sooner, and the page concluded the user
+        wasn’t a member. No test can force that response order, so the WebKit
+        jobs are its coverage. Real Safari and iPhone users would have hit it,
+        and Chromium and Firefox were fast enough to hide it (<a href={pr(29)}>#29</a>).
+      </p>
+
+      <h3>The gap that hid a bug</h3>
+      <p>
+        The test plan listed one gap: nothing tested what happens to a chat
+        room when its owner leaves. Writing those tests showed the handover
+        didn’t follow the documented rule. It picked whoever was <em>invited</em>{' '}
+        first, not who had <em>accepted</em> longest ago, and people invited
+        together were ordered by however the database listed them. The fix
+        records when each person accepted, and six new tests pin the rule down
+        (<a href={pr(35)}>#35</a>).
+      </p>
+
+      <h2>When the infrastructure breaks</h2>
+      <p>Two failures on the same day had nothing to do with the app:</p>
+      <ul>
+        <li>
+          GitHub’s <code>ubuntu-latest</code> moved to Ubuntu 26.04, where the
+          Playwright version in use can’t install its browsers. Every job is
+          now pinned to 24.04 (<a href={pr(33)}>#33</a>).
+        </li>
+        <li>
+          An Ubuntu package mirror stalled twice, timing out WebKit’s
+          dependency install at 30 minutes before a single test ran. The
+          end-to-end jobs now run inside Playwright’s Docker image, with the
+          browsers and their libraries already installed (<a href={pr(34)}>#34</a>).
+        </li>
+      </ul>
+
+      <h2>What isn’t tested</h2>
+      <p>Deliberately left out, for now:</p>
+      <ul>
+        <li><strong>Load and performance.</strong> Households are small; a load test is on the roadmap.</li>
+        <li><strong>Security beyond access control.</strong> Permissions and the demo’s rate limit are tested, but there’s no penetration test or dependency audit gate.</li>
+        <li><strong>Visual regression.</strong> Layout is checked by hand.</li>
+        <li><strong>Frontend components on their own.</strong> Behaviour is covered end to end instead.</li>
+        <li><strong>Accessibility beyond what axe sees.</strong> Automated checks catch part of the problems; focus order and screen-reader flows need a manual pass.</li>
+        <li><strong>Production.</strong> There isn’t one yet; staging is checked by hand.</li>
+      </ul>
+    </div>
+  </article>
+</Base>

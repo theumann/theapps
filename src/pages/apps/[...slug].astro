@@ -17,7 +17,7 @@ export const getStaticPaths = async () => {
 };
 
 const { app } = Astro.props;
-const { name, domain, tagline, status, url, logo, logoDark, repo, demo, stack, statusNote } = app.data;
+const { name, domain, tagline, status, url, logo, logoDark, repo, demo, qaPage, stack, statusNote } = app.data;
 const { Content } = await render(app);
 const sections = stackSections(stack);
 ---
@@ -53,7 +53,7 @@ const sections = stackSections(stack);
       <p class="tagline mt-4 max-w-xl text-lg leading-relaxed text-muted" set:html={emphasisHtml(tagline)} />
 
       {
-        (url || demo || repo) && (
+        (url || demo || qaPage || repo) && (
           <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
             {url && (
               <a
@@ -82,6 +82,15 @@ const sections = stackSections(stack);
                 ]}
               >
                 Demo
+                <Arrow direction="right" class="group-hover:translate-x-0.5" />
+              </a>
+            )}
+            {qaPage && (
+              <a
+                href={qaPage}
+                class="group inline-flex items-center gap-1.5 rounded-lg border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-accent/40 hover:bg-accent-soft"
+              >
+                How it's tested
                 <Arrow direction="right" class="group-hover:translate-x-0.5" />
               </a>
             )}

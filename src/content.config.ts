@@ -52,6 +52,8 @@ const apps = defineCollection({
       repo: z.string().url().optional(),
       /** A link that drops a visitor straight into a working demo, shown as "Demo" on the card and case study. Linked `nofollow`, since a demo URL usually creates something on every visit. */
       demo: z.string().url().optional(),
+      /** A page on this site about how the app is tested, e.g. "/qa/". Shown as a "QA" link on the card and a button on the case study. */
+      qaPage: z.string().startsWith('/').optional(),
       /** Logo image, relative to this file, e.g. ../../assets/foo_logo.png. Replaces the name where shown, linking out to `url`. */
       logo: image().optional(),
       /** The same logo recoloured for dark mode, if the plain one doesn't read on a dark background. Only used alongside `logo`. */
