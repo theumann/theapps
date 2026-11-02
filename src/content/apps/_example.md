@@ -10,7 +10,7 @@ domain: example.com
 # A value that doesn't parse fails the build, but `npm run dev` only logs it
 # in the terminal and keeps serving the old text.
 tagline: One sentence on **what it does** and who it's for. This shows on the homepage card.
-status: planned # live | building | planned
+status: planned # live | beta | building | planned — beta: in production for invited testers, not open yet
 url: https://example.com # optional — omit if there's nothing public yet
 # repo: https://github.com/you/foo # optional — only if the source is public
 # demo: https://example.com/demo # optional — a link straight into a working demo, shown as "Demo"

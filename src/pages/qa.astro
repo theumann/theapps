@@ -18,7 +18,7 @@ const stats = [
   { value: '53', label: 'end-to-end scenarios, on 5 browser projects' },
   { value: '30', label: 'accessibility scans per layout' },
   { value: '89.5%', label: 'backend statement coverage' },
-  { value: '8', label: 'problems found since moving to CI' },
+  { value: '10', label: 'problems found since moving to CI' },
 ];
 
 const risks = [
@@ -49,6 +49,8 @@ const findings = [
   { by: 'axe', what: 'The chat list’s “New” button was announced as “Open chat”.', fix: 'Its accessible name now starts with the word on screen.', pr: 32 },
   { by: 'Parallel runs', what: 'Tests changing shared seed users could break each other.', fix: 'Fresh users per test, kept apart from the seed data.', pr: 28 },
   { by: 'Writing missing tests', what: 'When a chat room’s owner left, ownership went to whoever was invited first, not who had accepted longest ago.', fix: 'Participants record when they accepted, and handover sorts by it.', pr: 35 },
+  { by: 'API tests, in CI', what: 'Parallel test files regenerated the database client at once; one loaded it mid-rewrite and failed.', fix: 'The test setup no longer regenerates it.', pr: 40 },
+  { by: 'API tests, Prisma 7 upgrade', what: 'A taken username at sign-up was reported as a taken email: Prisma 7 no longer says which unique field clashed.', fix: 'Sign-up checks the username directly.', pr: 41 },
 ];
 ---
 
@@ -108,7 +110,8 @@ const findings = [
         modules were in and a demo was running on staging, the next layer made
         sense. In October 2026 the suites became required checks in CI, then
         spread to five browsers and gained unit tests, coverage thresholds and
-        accessibility scans. The <a href={`${blob}/docs/test-plan.md`}>test plan</a> writes
+        accessibility scans. Late that month an invite-only test household
+        moved onto production, with the same checks gating every release. The <a href={`${blob}/docs/test-plan.md`}>test plan</a> writes
         it all down; this page is the short version.
       </p>
 
@@ -196,8 +199,8 @@ const findings = [
 
       <h2>What testing found</h2>
       <p>
-        Eight problems found since the suites moved to CI: five in the app,
-        three in the tooling and the tests. Each fix shipped with the pull request that describes it.
+        Ten problems found since the suites moved to CI: six in the app,
+        four in the tooling and the tests. Each fix shipped with the pull request that describes it.
       </p>
       <div class="table-scroll">
         <table>
@@ -263,7 +266,9 @@ const findings = [
         <li><strong>Visual regression.</strong> Layout is checked by hand.</li>
         <li><strong>Frontend components on their own.</strong> Behaviour is covered end to end instead.</li>
         <li><strong>Accessibility beyond what axe sees.</strong> Automated checks catch part of the problems; focus order and screen-reader flows need a manual pass.</li>
-        <li><strong>Production.</strong> There isn’t one yet; staging is checked by hand.</li>
+        <li><strong>Production.</strong> Checked by hand after each release; no automated tests run against it.</li>
+        <li><strong>Roommate matching switched off.</strong> Production runs without it for now. The switch has an API test; the frontend side is checked by hand.</li>
+        <li><strong>Installing on a phone.</strong> No test tool can press a browser’s “Install app”; the tests check what it needs, and installing is tried by hand.</li>
       </ul>
     </div>
   </article>

@@ -1,13 +1,13 @@
 ---
 name: HouseBud
 tagline: "**Find roommates, then run the household together.** Students match on everyday habits, meet in a small group chat, and turn that group into a household with shared chores, expenses and a shopping list."
-status: building
+status: beta
 repo: https://github.com/theumann/housebud
-demo: https://frontend-staging-971b.up.railway.app/demo
+demo: https://demo.housebud.app/demo
 qaPage: /qa/
 logo: ../../assets/housebud_logo.svg
 logoDark: ../../assets/housebud_logo_dark.svg
-statusNote: In development, with a demo running on staging. Matching, chat and households are built, with chores, a shopping list, expenses, house rules and a calendar; production is next.
+statusNote: In beta. The household side (chat, chores, a shopping list, expenses, house rules and a calendar) runs in production for an invite-only test household. Roommate matching stays switched off there for now; the demo on staging has everything, matching included.
 stack:
   language: [TypeScript, Node]
   framework:
@@ -16,9 +16,9 @@ stack:
     - Tailwind v4
     - Express 5 — API
     - Zod — request validation
-  data: [Postgres, Prisma 6 — ORM + migrations]
+  data: [Postgres, Prisma 7 — ORM + migrations]
   auth: [Email + password — JWT + bcrypt]
-  hosting: [Railway — web + API + Postgres]
+  hosting: ['Railway — web + API + Postgres, staging and production']
   testing:
     - Vitest — unit
     - Vitest + Supertest — API integration
@@ -29,6 +29,7 @@ stack:
   ci:
     - GitHub Actions — 5 required checks on every PR
     - Railway — staging on merge to main
+    - 'Railway — production on release, only for commits that passed CI'
     - Migrations on pre-deploy
 order: 1
 ---
@@ -70,5 +71,5 @@ the household existed to whoever joins later.
 Unit, API and end-to-end suites run on every pull request, across three
 browser engines and two emulated phones, with accessibility scans and coverage
 thresholds, and nothing merges until they pass. The [QA case study](/qa/)
-covers the plan, the risks it starts from, and the eight problems the tests
+covers the plan, the risks it starts from, and the ten problems the tests
 have found since moving to CI.
