@@ -12,10 +12,11 @@ decided, just not done yet.
 - [x] Social card (`public/og.png`) — done 2026-09-21.
 - [x] **Go-live commit** — done 2026-09-21. `noindex` removed and the
       `Sitemap:` line restored, so the site is indexable.
-- [ ] Add the property in Google Search Console and submit
-      `sitemap-index.xml`. Removing `noindex` only takes effect on the next
-      crawl, which can be days or weeks; submitting the sitemap is the lever
-      that speeds it up.
+- [x] Add the property in Google Search Console and submit
+      `sitemap-index.xml` — done 2026-09-24 (a Domain property, verified by
+      DNS TXT record). Removing `noindex` only takes effect on the next crawl,
+      which can be days or weeks; submitting the sitemap is the lever that
+      speeds it up.
 
 ## Link checking
 
@@ -54,9 +55,11 @@ nil. They still get fixed: the alerts are public on the repo page now.
 - [x] `npm audit fix` cleared all 15 — done 2026-09-23, within existing semver
       ranges, so `package.json` was untouched and the built HTML came out
       byte-identical.
-- [ ] Check `npm audit` periodically, or turn on Dependabot's automated PRs.
-      Alert emails are off by default, so nothing will tell you otherwise —
-      the alerts live at Security → Dependabot alerts, not in your inbox.
+- [x] Dependabot security updates are on: it opens a PR for each alert
+      (#24–#26 were three). Alert emails are off by default, so the alerts
+      themselves live at Security → Dependabot alerts, not in your inbox.
+      Version updates (a `.github/dependabot.yml`) aren't set up, so packages
+      only move when there's an advisory or a manual `npm update`.
 
 ## Housekeeping
 
