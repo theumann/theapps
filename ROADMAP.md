@@ -60,11 +60,11 @@ nil. They still get fixed: the alerts are public on the repo page now.
 
 ## Housekeeping
 
-- [ ] `astro check` reports 15 hints, all `'z' is deprecated` from
-      `import { z } from 'astro:content'` in `src/content.config.ts`. Astro now
-      nudges toward importing `zod` directly. Cosmetic; clearing it would make
+- [ ] `astro check` reports 20 hints, all in `src/content.config.ts`: 17
+      `'z' is deprecated` from `import { z } from 'astro:content'` (Astro now
+      nudges toward importing `zod` directly), and 3 for the deprecated
+      `z.string().url()`. Cosmetic; clearing it would make
       the hint count meaningful again.
-- [ ] No `.claude/commit-and-push.md` profile in this repo, so the
-      commit-and-push skill derives gates from CLAUDE.md and package.json each
-      time. Worth writing one: the gates here are `npm run check` and
-      `npm run build`; there is no lint, format, or test script.
+- [x] `.claude/commit-and-push.md` profile — done 2026-11-02. Gates, review
+      traps, preview links after a push, and the production check after a
+      merge (read by the `post-merge` skill too).
