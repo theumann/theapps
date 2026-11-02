@@ -33,6 +33,9 @@
   /* "Building" badge. */
   --color-warn: oklch(55.5% 0.163 49);
   --color-warn-soft: oklch(98.7% 0.022 95);
+  /* "Beta" badge. */
+  --color-beta: oklch(52% 0.17 300);
+  --color-beta-soft: oklch(96.5% 0.03 300);
 }
 
 /* Dark theme. Follows the OS unless the page says otherwise via
@@ -52,6 +55,8 @@
     --color-subtle: oklch(27% 0.01 260);
     --color-warn: oklch(82% 0.14 75);
     --color-warn-soft: oklch(30% 0.06 60);
+    --color-beta: oklch(80% 0.11 300);
+    --color-beta-soft: oklch(29% 0.06 300);
     --shadow-tint: rgb(0 0 0 / 0.5);
   }
 }
@@ -67,6 +72,8 @@
   --color-subtle: oklch(27% 0.01 260);
   --color-warn: oklch(82% 0.14 75);
   --color-warn-soft: oklch(30% 0.06 60);
+  --color-beta: oklch(80% 0.11 300);
+  --color-beta-soft: oklch(29% 0.06 300);
   --shadow-tint: rgb(0 0 0 / 0.5);
 }
 /* Outside @theme on purpose: it isn't a Tailwind color, just the tint of the

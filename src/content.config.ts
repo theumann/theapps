@@ -44,8 +44,8 @@ const apps = defineCollection({
       domain: z.string().optional(),
       /** One line. Shown on the card. */
       tagline: z.string(),
-      /** Live = shipped and usable. Building = in progress. Planned = not started. */
-      status: z.enum(['live', 'building', 'planned']),
+      /** Live = shipped and open to anyone. Beta = running in production for invited testers, not open yet. Building = in progress. Planned = not started. */
+      status: z.enum(['live', 'beta', 'building', 'planned']),
       /** Public URL, if there is one to link to yet. */
       url: z.string().url().optional(),
       /** Public source repository, if the code is open. Omit for anything still private. */

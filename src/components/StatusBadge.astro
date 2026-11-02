@@ -1,18 +1,20 @@
 ---
 interface Props {
-  status: 'live' | 'building' | 'planned';
+  status: 'live' | 'beta' | 'building' | 'planned';
 }
 
 const { status } = Astro.props;
 
 const styles: Record<Props['status'], string> = {
   live: 'bg-accent-soft text-accent',
+  beta: 'bg-beta-soft text-beta',
   building: 'bg-warn-soft text-warn',
   planned: 'bg-subtle text-muted',
 };
 
 const labels: Record<Props['status'], string> = {
   live: 'Live',
+  beta: 'Beta',
   building: 'Building',
   planned: 'Planned',
 };
